@@ -1,0 +1,62 @@
+{
+  "name": "react-named-router",
+  "version": "1.0.0",
+  "description": "Named router for React applications",
+  "keywords": [
+    "react",
+    "router",
+    "named",
+    "react-router"
+  ],
+  "main": "lib/index.js",
+  "module": "es6/index.js",
+  "repository": "https://github.com/D34THWINGS/react-named-router",
+  "author": "d34thwings <d34thwings@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint '**/*.{js,jsx,mjs,ts,tsx}'",
+    "typecheck": "tsc --noEmit",
+    "check": "yarn lint --cache && yarn typecheck && yarn test",
+    "build": "yarn build:module & yarn build:commonjs",
+    "build:module": "rm -rf es6 && tsc --outDir es6 --module esnext",
+    "build:commonjs": "rm -rf lib && tsc --outDir lib --module commonjs --declaration",
+    "version": "yarn changelog && git add CHANGELOG.md",
+    "changelog": "gitmoji-changelog",
+    "prepare": "yarn build"
+  },
+  "peerDependencies": {
+    "react": "^16.8.6",
+    "react-router": "^5.0.1",
+    "react-router-dom": "^5.0.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.13",
+    "@types/node": "^12.0.7",
+    "@types/react": "^16.8.19",
+    "@types/react-router": "^5.0.1",
+    "@types/react-router-config": "^5.0.0",
+    "@types/react-router-dom": "^4.3.3",
+    "@typescript-eslint/eslint-plugin": "^1.10.2",
+    "@typescript-eslint/parser": "^1.10.2",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.17.3",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.13.0",
+    "gitmoji-changelog": "^1.1.0",
+    "history": "^4.9.0",
+    "jest": "^24.8.0",
+    "react": "^16.8.6",
+    "react-router": "^5.0.1",
+    "react-router-config": "^5.0.1",
+    "react-router-dom": "^5.0.1",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.5.1"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    }
+  }
+}
