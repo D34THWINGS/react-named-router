@@ -62,12 +62,7 @@ workflows:
   version: 2
   main_workflow:
     jobs:
-      - install:
-          filters:
-            branches:
-              ignore: master
-            tags:
-              ignore: /.*/
+      - install
       - build:
           requires:
             - install
