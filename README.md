@@ -140,6 +140,30 @@ const MyComponent = () => {
 }
 ```
 
+## With `react-router-config`
+
+Since route configuration objects of `react-named-router` are based on `react-router-config` configuration objects, you
+can simply use it as you would normally but adding an extra `name` property to each route object having a `path` property.
+
+```jsx harmony
+const Users = ({ route }) => renderRoutes(route.routes);
+
+const routes = [
+  { name: 'home', path: '/', exact: true, component: Home },
+  {
+    name: 'users',
+    path: '/users',
+    component: Users,
+    routes: [
+      { name: 'userDetails', path: '/users/:userId', component: UserDetails, exact: true },
+      { component: UsersList },
+    ],
+  },
+];
+
+const App = () => renderRoutes(routes);
+```
+
 ## I18n (translated route paths)
 
 As said earlier i18n is really easy using named routing. Here's an example using [`react-i18next`](https://react.i18next.com/):
