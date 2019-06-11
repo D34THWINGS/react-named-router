@@ -15,4 +15,4 @@ deploy:
   api_key: $NPM_API_KEY
   on:
     tags: true
-    repo: d34thwings/react-named-router
+    repo: D34THWINGS/react-named-router
