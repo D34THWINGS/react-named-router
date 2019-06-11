@@ -24,7 +24,7 @@
     "build:module": "rm -rf es6 && tsc --outDir es6 --module esnext",
     "build:commonjs": "rm -rf lib && tsc --outDir lib --module commonjs --declaration",
     "version": "yarn changelog && git add CHANGELOG.md",
-    "changelog": "gitmoji-changelog",
+    "changelog": "gitmoji-changelog update",
     "prepack": "yarn check && yarn build"
   },
   "peerDependencies": {
