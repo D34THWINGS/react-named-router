@@ -1,5 +1,17 @@
 # Changelog
 
+<a name="0.0.4"></a>
+## 0.0.4 (2019-06-11)
+
+### Added
+
+- 👷‍♂️ Fix not working deploy [[1be9762](https://github.com/D34THWINGS/react-named-router/commit/1be97621abb8dbfd313432dda885317ee8f18e66)]
+
+### Miscellaneous
+
+- 📝 Fix CHANGELOG.md [[57dcf2d](https://github.com/D34THWINGS/react-named-router/commit/57dcf2dbc9607e6953193243d2efe11f800024bf)]
+
+
 <a name="0.0.3"></a>
 ## 0.0.3 (2019-06-11)
 
