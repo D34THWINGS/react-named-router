@@ -1,0 +1,18 @@
+anguage: node_js
+node_js:
+  - node
+cache:
+  - npm
+  - yarn
+script:
+  - yarn lint
+  - yarn typecheck
+  - yarn test:ci
+deploy:
+  skip_cleanup: true
+  provider: npm
+  email: d34thwings@gmail.com
+  api_key: $NPM_API_KEY
+  on:
+    tags: true
+    repo: d34thwings/react-named-router
