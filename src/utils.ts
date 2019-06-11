@@ -74,15 +74,12 @@ export class BaseRoutingContext {
     this.routesMap = routesMap;
   }
 
-  public match(pathname: string) {
-    return Array.from(this.routesMap.values()).find(route => !!route.regex && route.regex.test(pathname)) || null;
-  }
+  public match = (pathname: string) => Array.from(this.routesMap.values())
+    .find(route => !!route.regex && route.regex.test(pathname)) || null;
 
-  public getPath<TParams>(name: string, params?: TParams) {
-    return buildRoutePath(this.routesMap, name, params);
-  }
+  public getPath = <TParams>(name: string, params?: TParams) => buildRoutePath(this.routesMap, name, params);
 
-  public getRoute(name: string) {
+  public getRoute = (name: string) => {
     const route = this.routesMap.get(name);
     if (!route) {
       throw new Error(`Undefined route "${name}"`);
@@ -100,13 +97,11 @@ export class RoutingContext extends BaseRoutingContext {
     this.history = history;
   }
 
-  public push<TParams>(name: string, params?: TParams) {
-    this.history.push(buildRoutePath(this.routesMap, name, params));
-  }
+  public push = <TParams>(name: string, params?: TParams) => this.history
+    .push(buildRoutePath(this.routesMap, name, params));
 
-  public replace<TParams>(name: string, params?: TParams) {
-    this.history.replace(buildRoutePath(this.routesMap, name, params));
-  }
+  public replace = <TParams>(name: string, params?: TParams) => this.history
+    .replace(buildRoutePath(this.routesMap, name, params));
 }
 
 /* eslint-disable import/export */

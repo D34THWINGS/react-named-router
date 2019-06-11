@@ -1,2 +1,7 @@
 src/
 .idea/
+.eslintcache
+.editorconfig
+.eslintrc
+tsconfig.json
+yarn.lock
