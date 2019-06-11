@@ -1,5 +1,5 @@
 # react-named-router
-[![CircleCI](https://img.shields.io/circleci/build/github/D34THWINGS/react-named-router/master.svg?token=5b5f38b910c15695c0335789b90f7ab115129829)](https://circleci.com/gh/D34THWINGS/react-named-router)
+[![Travis](https://img.shields.io/travis/D34THWINGS/react-named-router.svg)](https://travis-ci.org/D34THWINGS/react-named-router)
 [![MIT License](https://img.shields.io/npm/v/react-named-router.svg)](https://www.npmjs.com/package/react-named-router)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
