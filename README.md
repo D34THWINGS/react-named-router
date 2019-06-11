@@ -139,6 +139,60 @@ const MyComponent = () => {
 }
 ```
 
+## I18n (translated route paths)
+
+As said earlier i18n is really easy using named routing. Here's an example using [`react-i18next`](https://react.i18next.com/):
+
+```jsx harmony
+i18next.addResourceBundle('en', 'urls', { users: 'users' });
+i18next.addResourceBundle('fr', 'urls', { users: 'utilisateurs' });
+
+const App = ({ lang }) => {
+  const { t } = useTranslation();
+  const routes = useMemo(() => [
+    { name: 'users', path: t('urls:users') }
+  ], [lang]);
+
+  return (
+    <NamedRouter routes={routes}>
+      {/* App content */}
+    </NamedRouter>
+  )
+}
+```
+
+You can also base lang on a lang param inside URL.
+
+## SSR
+
+Server side rendering is a cool feature that ensure great performance for mobile users and better SEO, and named
+router can also help with that. You need to use the `StaticRouter` instead of the regular `BrowserRouter` by
+providing the `routerComponent` prop:
+
+```jsx harmony
+const handleGet = (req, res) => {
+  res(ReactDOMServer.renderToString((
+    <NamedRouter routerComponent={StaticRouter} routerProps={{ location: req.url }} routes={routes}>
+      {/* App content */}
+    </NamedRouter>
+  )));
+}
+```
+
+You can also build a meta tags/page title system based on named routes:
+
+```jsx harmony
+const meta = { home: { title: 'My awesome page' } };
+
+const routingContext = buildRoutingContext(routes);
+
+const handleGet = (req, res) => {
+  const { name } = routingContext.match(req.url);
+  const { title } = meta[name].title;
+  // Render app with title...
+}
+```
+
 ## API
 
 ### `NamedRouter`
@@ -187,6 +241,11 @@ is overridden by Named Router.
 NamedRoute throw the following errors:
 
 - `Undefined route "$name"`: When the `to` prop does not match any route given to the `NamedRouter`.
+
+### `buildRouterContext(routes: NamedRouteConfig[])`
+
+Utility function that can be used to build the context on server side rendering to get the name of the current route.
+This is useful when you need to generate meta tags, page title or anything else depending on which route is matching.
 
 ### Context API
 

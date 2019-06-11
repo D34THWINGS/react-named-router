@@ -4,7 +4,7 @@ export { default as NamedRedirect, NamedRedirectProps } from './NamedRedirect';
 
 export { default as NamedRoute, NamedRouteProps } from './NamedRoute';
 
-export { BaseRoutingContext, RoutingContext } from './utils';
+export { buildRoutingContext, BaseRoutingContext, RoutingContext } from './utils';
 
 export {
   default as NamedRouter,

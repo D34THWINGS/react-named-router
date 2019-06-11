@@ -10,6 +10,7 @@
   ],
   "main": "lib/index.js",
   "module": "es6/index.js",
+  "types": "lib/index.d.ts",
   "repository": "https://github.com/D34THWINGS/react-named-router",
   "author": "d34thwings <d34thwings@gmail.com>",
   "license": "MIT",
@@ -23,7 +24,7 @@
     "build:commonjs": "rm -rf lib && tsc --outDir lib --module commonjs --declaration",
     "version": "yarn changelog && git add CHANGELOG.md",
     "changelog": "gitmoji-changelog",
-    "prepare": "yarn build"
+    "prepack": "yarn build"
   },
   "peerDependencies": {
     "react": "^16.8.6",
