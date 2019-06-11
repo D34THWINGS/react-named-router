@@ -5,3 +5,4 @@ src/
 .eslintrc
 tsconfig.json
 yarn.lock
+reports/

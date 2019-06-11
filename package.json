@@ -16,6 +16,7 @@
   "license": "MIT",
   "scripts": {
     "test": "jest",
+    "test:ci": "jest --ci --reporters=default --reporters=jest-junit -w 8",
     "lint": "eslint '**/*.{js,jsx,mjs,ts,tsx}'",
     "typecheck": "tsc --noEmit",
     "check": "yarn lint --cache && yarn typecheck && yarn test",
@@ -48,6 +49,7 @@
     "gitmoji-changelog": "^1.1.0",
     "history": "^4.9.0",
     "jest": "^24.8.0",
+    "jest-junit": "^6.4.0",
     "react": "^16.8.6",
     "react-router": "^5.0.1",
     "react-router-config": "^5.0.1",
