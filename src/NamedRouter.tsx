@@ -1,9 +1,8 @@
-import React, { createContext, useContext, useMemo } from 'react';
+import React, { createContext, useContext } from 'react';
 import { BrowserRouter, BrowserRouterProps } from 'react-router-dom';
-import { __RouterContext } from 'react-router';
+import { Route } from 'react-router';
 /* eslint-disable import/no-extraneous-dependencies */
 import { RouteConfig } from 'react-router-config';
-import { History } from 'history';
 /* eslint-enable */
 
 import { BaseRoutingContext, buildRoutingContext, RoutingContext } from './utils';
@@ -18,7 +17,6 @@ export interface NamedRouterProps<TRouterProps = BrowserRouterProps> {
   routes: NamedRouteConfig[];
   routerComponent?: React.ComponentType<TRouterProps>;
   routerProps?: TRouterProps;
-  history?: History;
   children?: React.ReactNode;
 }
 
@@ -29,18 +27,17 @@ const NamedRouter = ({
   routerComponent: RouterComponent = BrowserRouter,
   routerProps,
   routes,
-  history,
   children,
-}: NamedRouterProps) => {
-  const { history: routerHistory } = useContext(__RouterContext);
-  const routingContext = useMemo(() => buildRoutingContext(routes, history || routerHistory), [routes]);
-  return (
-    <RouterComponent {...routerProps}>
-      <routerContext.Provider value={routingContext}>
-        {children}
-      </routerContext.Provider>
-    </RouterComponent>
-  );
-};
+}: NamedRouterProps) => (
+  <RouterComponent {...routerProps}>
+    <Route>
+      {({ history }) => (
+        <routerContext.Provider value={buildRoutingContext(routes, history)}>
+          {children}
+        </routerContext.Provider>
+      )}
+    </Route>
+  </RouterComponent>
+);
 
 export default NamedRouter;

@@ -205,7 +205,6 @@ level component or within your initial call of `ReactDOM.render`.
 | **routes**          | `NamedRouteConfig[]`       | **yes**  | An array of route configuration objects                              |
 | **routerComponent** | `React.ComponentType<any>` |          | React component used as router (`BrowserRouter`, `StaticRouter`, etc)|
 | **routerProps**     | `any`                      |          | Props passed the the router component                                |
-| **history**         | `History`                  |          | History object from `history` package to manipulate browser history  |
 | **children**        | `React.ReactNode`          |          | Children elements to render inside router.                           |
 
 ### `NamedLink`
