@@ -24,7 +24,7 @@
     "build:commonjs": "rm -rf lib && tsc --outDir lib --module commonjs --declaration",
     "version": "yarn changelog && git add CHANGELOG.md",
     "changelog": "gitmoji-changelog",
-    "prepack": "yarn build"
+    "prepack": "yarn check && yarn build"
   },
   "peerDependencies": {
     "react": "^16.8.0",
