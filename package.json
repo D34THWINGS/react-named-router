@@ -1,6 +1,6 @@
 {
   "name": "react-named-router",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Named router for React applications",
   "keywords": [
     "react",
@@ -27,9 +27,9 @@
     "prepack": "yarn build"
   },
   "peerDependencies": {
-    "react": "^16.8.6",
-    "react-router": "^5.0.1",
-    "react-router-dom": "^5.0.1"
+    "react": "^16.8.0",
+    "react-router": "^5.0.0",
+    "react-router-dom": "^5.0.0"
   },
   "devDependencies": {
     "@types/jest": "^24.0.13",
