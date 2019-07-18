@@ -1,6 +1,6 @@
 # react-named-router
 [![Travis](https://img.shields.io/travis/D34THWINGS/react-named-router.svg)](https://travis-ci.org/D34THWINGS/react-named-router)
-[![MIT License](https://img.shields.io/npm/v/react-named-router.svg)](https://www.npmjs.com/package/react-named-router)
+[![NPM Version](https://img.shields.io/npm/v/react-named-router.svg)](https://www.npmjs.com/package/react-named-router)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
 Named router built on top of [React Router](https://github.com/ReactTraining/react-router).
