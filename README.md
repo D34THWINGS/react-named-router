@@ -275,6 +275,9 @@ NamedRoute throw the following errors:
 
 - `Undefined route "$name"`: When the `to` prop does not match any route given to the `NamedRouter`.
 
+Also NamedRoute will pass an extra `route` prop to rendered component/render function so you can make some matching
+against route name or use `renderRoutes(route.routes)`.
+
 ### `NamedSwitch`
 
 Based on the React Router [Switch](https://reacttraining.com/react-router/web/api/Switch) component.

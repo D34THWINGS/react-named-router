@@ -85,6 +85,14 @@ exports[`NamedSwitch should render only first matching route 1`] = `
                 }
               }
               path="/foo/bar"
+              route={
+                Object {
+                  "name": "bar",
+                  "parents": Array [],
+                  "path": "/foo/bar",
+                  "regex": /\\^\\\\/foo\\\\/bar\\\\/\\?\\$/,
+                }
+              }
             />
           </NamedRoute>
         </NamedSwitch>
