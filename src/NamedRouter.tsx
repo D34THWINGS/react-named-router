@@ -13,7 +13,7 @@ export interface NamedRouteConfig extends RouteConfig {
   routes?: NamedRouteConfig[];
 }
 
-export interface NamedRouterProps<TRouterProps = BrowserRouterProps> {
+export type NamedRouterProps<TRouterProps = BrowserRouterProps> = TRouterProps & {
   routes: NamedRouteConfig[];
   routerComponent?: React.ComponentType<TRouterProps>;
   routerProps?: TRouterProps;

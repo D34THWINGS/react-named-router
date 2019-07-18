@@ -6,7 +6,7 @@ import { useNamedRouting } from './NamedRouter';
 export interface NamedLinkProps<TParams = object> extends LinkProps {
   to: string;
   params?: TParams;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const NamedLink = ({

@@ -5,7 +5,7 @@ import { useNamedRouting } from './NamedRouter';
 
 export interface NamedRouteProps<TParams = object> extends RouteProps {
   name: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const NamedRoute = ({
