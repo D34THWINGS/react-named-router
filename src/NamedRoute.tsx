@@ -25,7 +25,7 @@ const NamedRoute = ({
   const route = context.getRoute(name);
 
   return (
-    <Route {...otherProps} path={route.path} route={route}>
+    <Route {...otherProps} {...route}>
       {children}
     </Route>
   );
