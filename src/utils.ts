@@ -8,8 +8,7 @@ export interface ExtendedRouteConfig extends NamedRouteConfig {
   regex?: RegExp;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const buildRoutePath = (map: Map<string, ExtendedRouteConfig>, name: string, params: any = {}) => {
+const buildRawPath = (map: Map<string, ExtendedRouteConfig>, name: string) => {
   const route = map.get(name);
   if (!route) {
     throw new Error(`Undefined route "${name}"`);
@@ -17,7 +16,12 @@ export const buildRoutePath = (map: Map<string, ExtendedRouteConfig>, name: stri
   if (!route.path) {
     throw new Error(`Route "${name}" does not have a path`);
   }
-  return route.path
+  return route.path;
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const buildRoutePath = (map: Map<string, ExtendedRouteConfig>, name: string, params: any = {}) => (
+  buildRawPath(map, name)
     .replace(/:\w+\??/g, (match) => {
       const paramKey = match.replace(/[:?]/g, '');
       const paramValue = params[paramKey];
@@ -26,8 +30,7 @@ export const buildRoutePath = (map: Map<string, ExtendedRouteConfig>, name: stri
       }
       return paramValue || '';
     })
-    .replace(/\/$/, '');
-};
+    .replace(/\/$/, ''));
 
 export const mapRoutes = (
   routes: NamedRouteConfig[],
@@ -81,6 +84,8 @@ export class BaseRoutingContext {
     .find(route => !!route.regex && route.regex.test(pathname)) || null;
 
   public getPath = <TParams>(name: string, params?: TParams) => buildRoutePath(this.routesMap, name, params);
+
+  public getRawPath = (name: string) => buildRawPath(this.routesMap, name);
 
   public getRoute = (name: string) => {
     const route = this.routesMap.get(name);

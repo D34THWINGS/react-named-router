@@ -23,7 +23,7 @@ const NamedSwitch = ({ location: locationFromProps, children }: NamedSwitchProps
     if (match === null && React.isValidElement(child)) {
       element = child;
 
-      const path = child.props.name ? context.getPath(child.props.name) : child.props.from;
+      const path = child.props.name ? context.getRawPath(child.props.name) : child.props.from;
 
       match = matchPath(location.pathname, { ...child.props, path });
     }
