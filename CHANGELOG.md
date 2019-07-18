@@ -1,5 +1,25 @@
 # Changelog
 
+<a name="0.1.0"></a>
+## 0.1.0 (2019-07-18)
+
+### Added
+
+- ✨ Add NamedSwitch component to replace not working Switch [[7bb82d1](https://github.com/D34THWINGS/react-named-router/commit/7bb82d16f2443f12c5ce24dcc7aced3d9fefae3f)]
+- ✅ Adding some tests [[1ed1f41](https://github.com/D34THWINGS/react-named-router/commit/1ed1f41d619734896918ade2ca97c397d3c3b56a)]
+
+### Fixed
+
+- 🐛 Fix wrong typings [[bf58733](https://github.com/D34THWINGS/react-named-router/commit/bf587338658f0fbb6fc7926d6638f05bf0200443)]
+- 🐛 Add missing NamedSwitch import [[835ec83](https://github.com/D34THWINGS/react-named-router/commit/835ec836a0b5c8b6a19910afd883ad0c7ba760b4)]
+- 🐛 Fix error when using NamedSwitch and named params [[df91dfb](https://github.com/D34THWINGS/react-named-router/commit/df91dfb0a5ba96d4b0cdd6e6a2ce374bb28d9e9f)]
+
+### Miscellaneous
+
+- 📦 Bump dependencies [[4add311](https://github.com/D34THWINGS/react-named-router/commit/4add311eebbc40fa7f88032b24c9e43b5e0696bf)]
+- 📝 Add explanations for react-router-config [[3bf760c](https://github.com/D34THWINGS/react-named-router/commit/3bf760c18efbe66c6d6a4a9614410b59de109125)]
+
+
 <a name="0.0.4"></a>
 ## 0.0.4 (2019-06-11)
 
