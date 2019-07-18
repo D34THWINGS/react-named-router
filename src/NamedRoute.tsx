@@ -1,9 +1,10 @@
 import React from 'react';
 import { Route, RouteProps } from 'react-router-dom';
+import invariant from 'tiny-invariant';
 
 import { useNamedRouting } from './NamedRouter';
 
-export interface NamedRouteProps<TParams = object> extends RouteProps {
+export interface NamedRouteProps<TParams = object> extends Omit<RouteProps, 'path'> {
   name: string;
   children?: React.ReactNode;
 }
@@ -13,7 +14,12 @@ const NamedRoute = ({
   children,
   ...otherProps
 }: NamedRouteProps) => {
-  const { getRoute } = useNamedRouting();
+  const context = useNamedRouting();
+
+  invariant(context, 'You should not use <NamedRoute> outside a <NamedRouter>');
+
+  const { getRoute } = context;
+
   return (
     <Route {...otherProps} path={getRoute(name).path}>
       {children}

@@ -1,3 +1,4 @@
+import { ComponentType } from 'react';
 import { createMemoryHistory } from 'history';
 
 import { NamedRouteConfig } from '../NamedRouter';
@@ -65,7 +66,7 @@ describe('Utils', () => {
 
     it('should ignore unnamed route without path', () => {
       // Given
-      const routes: NamedRouteConfig[] = [{ component: jest.fn() }];
+      const routes: NamedRouteConfig<{ component: ComponentType<any> }>[] = [{ component: jest.fn() }];
 
       // When
       const map = mapRoutes(routes);
@@ -78,7 +79,7 @@ describe('Utils', () => {
   describe('#buildRoutingContext()', () => {
     it('should return base context if no history is provided', () => {
       // When
-      const context = buildRoutingContext([]);
+      const context = buildRoutingContext([], {} as any);
 
       // Then
       expect(context).toBeInstanceOf(BaseRoutingContext);
@@ -86,7 +87,7 @@ describe('Utils', () => {
 
     it('should return full context if history is provided', () => {
       // When
-      const context = buildRoutingContext([], createMemoryHistory());
+      const context = buildRoutingContext([], {} as any, createMemoryHistory());
 
       // Then
       expect(context).toBeInstanceOf(RoutingContext);
@@ -103,7 +104,7 @@ describe('Utils', () => {
     describe('#getPath()', () => {
       it('should return path for given route name', () => {
         // Given
-        const baseRoutingContext = new BaseRoutingContext(routesMap);
+        const baseRoutingContext = new BaseRoutingContext(routesMap, {} as any);
 
         // When
         const path = baseRoutingContext.getPath('test');
@@ -116,7 +117,7 @@ describe('Utils', () => {
     describe('#getRoute()', () => {
       it('should return path for given route name', () => {
         // Given
-        const baseRoutingContext = new BaseRoutingContext(routesMap);
+        const baseRoutingContext = new BaseRoutingContext(routesMap, {} as any);
 
         // When
         const route = baseRoutingContext.getRoute('test');
@@ -127,7 +128,7 @@ describe('Utils', () => {
 
       it('should throw if route does not exist', () => {
         // Given
-        const baseRoutingContext = new BaseRoutingContext(routesMap);
+        const baseRoutingContext = new BaseRoutingContext(routesMap, {} as any);
 
         // Then
         expect(() => baseRoutingContext.getRoute('invalid')).toThrow(new Error('Undefined route "invalid"'));
@@ -137,7 +138,7 @@ describe('Utils', () => {
     describe('#match()', () => {
       it('should match route for given pathname', () => {
         // Given
-        const baseRoutingContext = new BaseRoutingContext(routesMap);
+        const baseRoutingContext = new BaseRoutingContext(routesMap, {} as any);
 
         // When
         const match = baseRoutingContext.match('/test');
@@ -159,7 +160,7 @@ describe('Utils', () => {
       it('should call push on history with matching route', () => {
         // Given
         const history = createMemoryHistory();
-        const routingContext = new RoutingContext(routesMap, history);
+        const routingContext = new RoutingContext(routesMap, {} as any, history);
         const historyPushMock = jest.spyOn(history, 'push');
 
         // When
@@ -174,7 +175,7 @@ describe('Utils', () => {
       it('should call replace on history with matching route', () => {
         // Given
         const history = createMemoryHistory();
-        const routingContext = new RoutingContext(routesMap, history);
+        const routingContext = new RoutingContext(routesMap, {} as any, history);
         const historyReplaceMock = jest.spyOn(history, 'replace');
 
         // When

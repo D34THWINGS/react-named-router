@@ -61,5 +61,8 @@
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
     }
+  },
+  "dependencies": {
+    "tiny-invariant": "^1.0.6"
   }
 }

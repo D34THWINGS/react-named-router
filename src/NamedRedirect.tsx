@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect, RedirectProps } from 'react-router-dom';
+import invariant from 'tiny-invariant';
 
 import { useNamedRouting } from './NamedRouter';
 
@@ -13,7 +14,12 @@ const NamedRedirect = ({
   params,
   ...otherProps
 }: NamedRedirectProps) => {
-  const { getPath } = useNamedRouting();
+  const context = useNamedRouting();
+
+  invariant(context, 'You should not use <NamedRedirect> outside a <NamedRouter>');
+
+  const { getPath } = context;
+
   return (
     <Redirect {...otherProps} to={getPath(to, params)} />
   );

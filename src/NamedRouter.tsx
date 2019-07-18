@@ -1,16 +1,16 @@
 import React, { createContext, useContext } from 'react';
 import { BrowserRouter, BrowserRouterProps } from 'react-router-dom';
 import { Route } from 'react-router';
-/* eslint-disable import/no-extraneous-dependencies */
-import { RouteConfig } from 'react-router-config';
-/* eslint-enable */
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { Location } from 'history';
 
 import { BaseRoutingContext, buildRoutingContext, RoutingContext } from './utils';
 
-export interface NamedRouteConfig extends RouteConfig {
+export type NamedRouteConfig<T = object> = T & {
   name?: string;
+  path?: string;
   title?: string;
-  routes?: NamedRouteConfig[];
+  routes?: NamedRouteConfig<T>[];
 }
 
 export type NamedRouterProps<TRouterProps = BrowserRouterProps> = TRouterProps & {
@@ -20,7 +20,10 @@ export type NamedRouterProps<TRouterProps = BrowserRouterProps> = TRouterProps &
   children?: React.ReactNode;
 }
 
-export const routerContext = createContext<BaseRoutingContext | RoutingContext>(buildRoutingContext([]));
+export const routerContext = createContext<BaseRoutingContext | RoutingContext>(buildRoutingContext(
+  [],
+  {} as unknown as Location,
+));
 export const useNamedRouting = () => useContext(routerContext);
 
 const NamedRouter = ({
@@ -31,8 +34,8 @@ const NamedRouter = ({
 }: NamedRouterProps) => (
   <RouterComponent {...routerProps}>
     <Route>
-      {({ history }) => (
-        <routerContext.Provider value={buildRoutingContext(routes, history)}>
+      {({ history, location }) => (
+        <routerContext.Provider value={buildRoutingContext(routes, location, history)}>
           {children}
         </routerContext.Provider>
       )}

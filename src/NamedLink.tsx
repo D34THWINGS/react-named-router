@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, LinkProps } from 'react-router-dom';
+import invariant from 'tiny-invariant';
 
 import { useNamedRouting } from './NamedRouter';
 
@@ -15,7 +16,12 @@ const NamedLink = ({
   children,
   ...otherProps
 }: NamedLinkProps) => {
-  const { getPath } = useNamedRouting();
+  const context = useNamedRouting();
+
+  invariant(context, 'You should not use <NamedLink> outside a <NamedRouter>');
+
+  const { getPath } = context;
+
   return (
     <Link {...otherProps} to={getPath(to, params)}>
       {children}

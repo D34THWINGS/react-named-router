@@ -63,14 +63,14 @@ The basic component to render routing is the same as when you use React Router c
 will take a `name` prop instead of `path`.
 
 ```jsx harmony
-import { NamedRoute } from 'react-named-router';
+import { NamedRoute, NamedSwitch } from 'react-named-router';
 
 const MyComponent = () => (
   <div className="wrapper">
-    <Switch>
+    <NamedSwitch>
       <NamedRoute name="home" exact component={Home} />
       <Route component={NotFound} />
-    </Switch>
+    </NamedSwitch>
   </div>
 );
 ```
@@ -99,6 +99,15 @@ const link = <NamedLink to="parametrized">Link to home</NamedLink>;
 ```
 
 Optional parameters will not throw an error if not given.
+
+### `NamedSwitch`
+
+Due to the way React router's `Switch` operates, it cannot work with `NamedRoute` component. This is why `react-named-router`
+also provides a `NamedSwitch` component that does exactly the same, but requires a `name` prop instead of `path`  on
+its children.
+
+As a reminder, the `NamedSwitch` component only renders the first matching child component for current location. This
+allows you to use routes that are not matching exact path.
 
 ## Advanced usage
 
@@ -265,6 +274,14 @@ is overridden by Named Router.
 NamedRoute throw the following errors:
 
 - `Undefined route "$name"`: When the `to` prop does not match any route given to the `NamedRouter`.
+
+### `NamedSwitch`
+
+Based on the React Router [Switch](https://reacttraining.com/react-router/web/api/Switch) component.
+
+| prop                | type       | required | description                                                          |
+|---------------------|------------|----------|----------------------------------------------------------------------|
+| **location**        | `Location` |          | Location to be used for route matching, defaults to context location |
 
 ### `buildRouterContext(routes: NamedRouteConfig[])`
 
