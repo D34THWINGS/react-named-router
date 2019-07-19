@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NamedSwitch should render only first matching route 1`] = `
+<NamedRouter
+  routerComponent={[Function]}
+  routerProps={
+    Object {
+      "location": "/foo",
+    }
+  }
+  routes={
+    Array [
+      Object {
+        "component": [Function],
+        "exact": true,
+        "name": "foo",
+        "path": "/foo",
+      },
+    ]
+  }
+>
+  <StaticRouter
+    location="/foo"
+  >
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "createHref": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "/foo",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+      staticContext={Object {}}
+    >
+      <Route>
+        <NamedRoute
+          name="foo"
+        >
+          <Route
+            component={[Function]}
+            exact={true}
+            name="foo"
+            parents={Array []}
+            path="/foo"
+            regex={/\\^\\\\/foo\\\\/\\?\\$/}
+          >
+            <component
+              history={
+                Object {
+                  "action": "POP",
+                  "block": [Function],
+                  "createHref": [Function],
+                  "go": [Function],
+                  "goBack": [Function],
+                  "goForward": [Function],
+                  "listen": [Function],
+                  "location": Object {
+                    "hash": "",
+                    "pathname": "/foo",
+                    "search": "",
+                    "state": undefined,
+                  },
+                  "push": [Function],
+                  "replace": [Function],
+                }
+              }
+              location={
+                Object {
+                  "hash": "",
+                  "pathname": "/foo",
+                  "search": "",
+                  "state": undefined,
+                }
+              }
+              match={
+                Object {
+                  "isExact": true,
+                  "params": Object {},
+                  "path": "/foo",
+                  "url": "/foo",
+                }
+              }
+              staticContext={Object {}}
+            />
+          </Route>
+        </NamedRoute>
+      </Route>
+    </Router>
+  </StaticRouter>
+</NamedRouter>
+`;

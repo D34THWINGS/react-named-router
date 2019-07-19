@@ -9,7 +9,6 @@ import { BaseRoutingContext, buildRoutingContext, RoutingContext } from './utils
 export type NamedRouteConfig<T = object> = T & {
   name?: string;
   path?: string;
-  title?: string;
   routes?: NamedRouteConfig<T>[];
 }
 
