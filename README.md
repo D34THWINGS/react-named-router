@@ -12,7 +12,29 @@ can also be used on server side rendering.
 :warning: This package is based on `react-router-dom` components and is required as a peer dependency, therefore, you
 can't use it (yet) on Native environment.
 
+* [Installation](#installation)
+* [Usage](#usage)
+* [Advanced usage](#advanced-usage)
+* [Configuration first usage](#configuration-first-usage)
+* [With react-router-config](#with-react-router-config)
+* [I18n (translated route paths)](#i18n-translated-route-paths)
+* [SSR](#ssr)
+* [API](#api)
+  * [NamedRouter](#namedrouter)
+  * [NamedLink](#namedlink)
+  * [NamedRedirect](#namedredirect)
+  * [NamedRoute](#namedroute-1)
+  * [NamedSwitch](#namedswitch-1)
+  * [Context API](#context-api)
+* [Contribute](#contribute)
+
 ## Installation
+
+Using [yarn](https://yarnpkg.com/):
+
+```shell
+$ yarn add react-named-router react-router-dom
+```
 
 Using [npm](https://www.npmjs.com/):
 
@@ -149,6 +171,32 @@ const MyComponent = () => {
 }
 ```
 
+## Configuration first usage
+
+`react-named-router` allows you to leverage the power of your routes configuration while maintaining high flexibility
+about where to render each route. The `NamedRoute` component will use all fields from the matching route to build its
+props:
+
+```jsx harmony
+// Configuration file
+const routes = [
+  { name: 'home', path: '/', component: Home },
+  { name: 'userDetails', path: '/users/:userId', exact: true, component: UserDetails },
+]
+
+// Component file
+const MyComponent = () => (
+  <>
+    <LeftContainer>
+      <NamedRoute name="home" />
+    </LeftContainer>
+    <RightContainer>
+      <NamedRoute name="userDetails" />
+    </RightContainer>
+  </>
+)
+```
+
 ## With `react-router-config`
 
 Since route configuration objects of `react-named-router` are based on `react-router-config` configuration objects, you
@@ -275,8 +323,7 @@ NamedRoute throw the following errors:
 
 - `Undefined route "$name"`: When the `to` prop does not match any route given to the `NamedRouter`.
 
-Also NamedRoute will pass an extra `route` prop to rendered component/render function so you can make some matching
-against route name or use `renderRoutes(route.routes)`.
+Also NamedRoute will forward all fields from matching route to Route component (`path`, `exact`, `component`).
 
 ### `NamedSwitch`
 
