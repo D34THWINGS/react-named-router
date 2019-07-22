@@ -1,5 +1,18 @@
 # Changelog
 
+<a name="0.2.0"></a>
+## 0.2.0 (2019-07-19)
+
+### Added
+
+- ✨ Add extra prop route to NamedRoute child component [[62e3c9e](https://github.com/D34THWINGS/react-named-router/commit/62e3c9ebeae070d08e7cb51b9db1f5d7b2fc69ef)]
+- ✨ Apply all props from route definition. ([#1](https://github.com/D34THWINGS/react-named-router/issues/1)) [[1b34f91](https://github.com/D34THWINGS/react-named-router/commit/1b34f91992a41fdcad78dc4ee70980854a82548a)]
+
+### Miscellaneous
+
+- 📝 Fix NPM shield alt in README [[4aa9049](https://github.com/D34THWINGS/react-named-router/commit/4aa90499690c158b6d8b96eaedb5aba7b701c0d9)]
+
+
 <a name="0.1.0"></a>
 ## 0.1.0 (2019-07-18)
 
