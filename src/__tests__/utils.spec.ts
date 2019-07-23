@@ -1,4 +1,3 @@
-import { ComponentType } from 'react';
 import { createMemoryHistory } from 'history';
 
 import { NamedRouteConfig } from '../NamedRouter';
@@ -66,7 +65,7 @@ describe('Utils', () => {
 
     it('should ignore unnamed route without path', () => {
       // Given
-      const routes: NamedRouteConfig<{ component: ComponentType<any> }>[] = [{ component: jest.fn() }];
+      const routes: NamedRouteConfig[] = [{ component: jest.fn() }];
 
       // When
       const map = mapRoutes(routes);

@@ -1,12 +1,12 @@
 import React, { createContext, useContext } from 'react';
-import { BrowserRouter, BrowserRouterProps } from 'react-router-dom';
+import { BrowserRouter, BrowserRouterProps, RouteProps } from 'react-router-dom';
 import { Route } from 'react-router';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Location } from 'history';
 
 import { BaseRoutingContext, buildRoutingContext, RoutingContext } from './utils';
 
-export type NamedRouteConfig<T = object> = T & {
+export type NamedRouteConfig<T = object> = T & Omit<RouteProps, 'children'> & {
   name?: string;
   path?: string;
   routes?: NamedRouteConfig<T>[];

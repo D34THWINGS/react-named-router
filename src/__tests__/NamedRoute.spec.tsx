@@ -1,7 +1,7 @@
 import React from 'react';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { RouteProps, StaticRouter, StaticRouterProps } from 'react-router';
+import { StaticRouter, StaticRouterProps } from 'react-router';
 import NamedRouter, { NamedRouteConfig } from '../NamedRouter';
 import NamedRoute from '../NamedRoute';
 
@@ -11,7 +11,7 @@ describe('NamedSwitch', () => {
   it('should render only first matching route', () => {
     // Given
     const routerProps: StaticRouterProps = { location: '/foo' };
-    const routes: NamedRouteConfig<RouteProps>[] = [{
+    const routes: NamedRouteConfig[] = [{
       name: 'foo',
       path: '/foo',
       exact: true,

@@ -24,8 +24,9 @@ const NamedSwitch = ({ location: locationFromProps, children }: NamedSwitchProps
       element = child;
 
       const path = child.props.name ? context.getRawPath(child.props.name) : child.props.from;
+      const route = child.props.name ? context.getRoute(child.props.name) : {};
 
-      match = matchPath(location.pathname, { ...child.props, path });
+      match = matchPath(location.pathname, { ...route, ...child.props, path });
     }
   });
 

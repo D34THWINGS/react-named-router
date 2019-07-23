@@ -1,98 +1,139 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`NamedSwitch should render only first matching route 1`] = `
-<NamedRouter
-  routerComponent={[Function]}
-  routerProps={
-    Object {
-      "location": "/foo/bar",
-    }
-  }
-  routes={
-    Array [
+<NamedSwitch>
+  <NamedRoute
+    computedMatch={
       Object {
-        "name": "foo",
-        "path": "/foo",
-      },
-      Object {
-        "name": "bar",
+        "isExact": true,
+        "params": Object {},
         "path": "/foo/bar",
-      },
-    ]
-  }
->
-  <StaticRouter
-    location="/foo/bar"
+        "url": "/foo/bar",
+      }
+    }
+    location={
+      Object {
+        "hash": "",
+        "pathname": "/foo/bar",
+        "search": "",
+        "state": undefined,
+      }
+    }
+    name="bar"
   >
-    <Router
-      history={
+    <Route
+      computedMatch={
         Object {
-          "action": "POP",
-          "block": [Function],
-          "createHref": [Function],
-          "go": [Function],
-          "goBack": [Function],
-          "goForward": [Function],
-          "listen": [Function],
-          "location": Object {
+          "isExact": true,
+          "params": Object {},
+          "path": "/foo/bar",
+          "url": "/foo/bar",
+        }
+      }
+      location={
+        Object {
+          "hash": "",
+          "pathname": "/foo/bar",
+          "search": "",
+          "state": undefined,
+        }
+      }
+      name="bar"
+      parents={Array []}
+      path="/foo/bar"
+      regex={/\\^\\\\/foo\\\\/bar\\\\/\\?\\$/}
+    />
+  </NamedRoute>
+</NamedSwitch>
+`;
+
+exports[`NamedSwitch should spread matching route properties 1`] = `
+<NamedSwitch>
+  <NamedRoute
+    computedMatch={
+      Object {
+        "isExact": true,
+        "params": Object {},
+        "path": "/foo/bar",
+        "url": "/foo/bar",
+      }
+    }
+    location={
+      Object {
+        "hash": "",
+        "pathname": "/foo/bar",
+        "search": "",
+        "state": undefined,
+      }
+    }
+    name="bar"
+  >
+    <Route
+      component={[Function]}
+      computedMatch={
+        Object {
+          "isExact": true,
+          "params": Object {},
+          "path": "/foo/bar",
+          "url": "/foo/bar",
+        }
+      }
+      location={
+        Object {
+          "hash": "",
+          "pathname": "/foo/bar",
+          "search": "",
+          "state": undefined,
+        }
+      }
+      name="bar"
+      parents={Array []}
+      path="/foo/bar"
+      regex={/\\^\\\\/foo\\\\/bar\\\\/\\?\\$/}
+    >
+      <BarComponent
+        history={
+          Object {
+            "action": "POP",
+            "block": [Function],
+            "createHref": [Function],
+            "go": [Function],
+            "goBack": [Function],
+            "goForward": [Function],
+            "listen": [Function],
+            "location": Object {
+              "hash": "",
+              "pathname": "/foo/bar",
+              "search": "",
+              "state": undefined,
+            },
+            "push": [Function],
+            "replace": [Function],
+          }
+        }
+        location={
+          Object {
             "hash": "",
             "pathname": "/foo/bar",
             "search": "",
             "state": undefined,
-          },
-          "push": [Function],
-          "replace": [Function],
+          }
         }
-      }
-      staticContext={Object {}}
-    >
-      <Route>
-        <NamedSwitch>
-          <NamedRoute
-            computedMatch={
-              Object {
-                "isExact": true,
-                "params": Object {},
-                "path": "/foo/bar",
-                "url": "/foo/bar",
-              }
-            }
-            location={
-              Object {
-                "hash": "",
-                "pathname": "/foo/bar",
-                "search": "",
-                "state": undefined,
-              }
-            }
-            name="bar"
-          >
-            <Route
-              computedMatch={
-                Object {
-                  "isExact": true,
-                  "params": Object {},
-                  "path": "/foo/bar",
-                  "url": "/foo/bar",
-                }
-              }
-              location={
-                Object {
-                  "hash": "",
-                  "pathname": "/foo/bar",
-                  "search": "",
-                  "state": undefined,
-                }
-              }
-              name="bar"
-              parents={Array []}
-              path="/foo/bar"
-              regex={/\\^\\\\/foo\\\\/bar\\\\/\\?\\$/}
-            />
-          </NamedRoute>
-        </NamedSwitch>
-      </Route>
-    </Router>
-  </StaticRouter>
-</NamedRouter>
+        match={
+          Object {
+            "isExact": true,
+            "params": Object {},
+            "path": "/foo/bar",
+            "url": "/foo/bar",
+          }
+        }
+        staticContext={Object {}}
+      >
+        <div>
+          Bar
+        </div>
+      </BarComponent>
+    </Route>
+  </NamedRoute>
+</NamedSwitch>
 `;
