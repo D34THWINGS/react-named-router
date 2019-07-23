@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="0.3.0"></a>
+## 0.3.0 (2019-07-23)
+
+### Fixed
+
+- 🐛 Fix NamedSwitch not using matching properties from route config [[45cf34f](https://github.com/D34THWINGS/react-named-router/commit/45cf34f816b7f65c00543258647b863cc4bbfbec)]
+
+
 <a name="0.2.0"></a>
 ## 0.2.0 (2019-07-19)
 
