@@ -15,7 +15,8 @@ const NamedSwitch = ({ location: locationFromProps, children }: NamedSwitchProps
 
   invariant(context, 'You should not use <NamedSwitch> outside a <NamedRouter>');
 
-  const location = locationFromProps || context.location;
+  const location = locationFromProps || (context.location as Location);
+
   let element = null;
   let match: null | Match = null;
 

@@ -361,9 +361,14 @@ for parameterized URLs generation. Throws also an error if required parameter is
 
 Retrieve route object for given route name. Throws an error if route is not found.
 
+##### `location: Location`
+
+Current location used within the router, can be useful to get `location.pathname` or `location.state`.
+
 #### `RoutingContext`
 
-When history API is available, this object will be returned by both the HOC and the React Hook.
+When history API is available, this object will be returned by both the HOC and the React Hook. It extends the
+`BaseRoutingContext`.
 
 ##### `push(name: string, params?: object)`
 

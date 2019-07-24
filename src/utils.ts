@@ -73,11 +73,10 @@ export const mapRoutes = (
 export class BaseRoutingContext {
   protected readonly routesMap: Map<string, ExtendedRouteConfig>;
 
-  public readonly location: Location;
+  public location: Location | null = null;
 
-  public constructor(routesMap: Map<string, ExtendedRouteConfig>, location: Location) {
+  public constructor(routesMap: Map<string, ExtendedRouteConfig>) {
     this.routesMap = routesMap;
-    this.location = location;
   }
 
   public match = (pathname: string) => Array.from(this.routesMap.values())
@@ -99,8 +98,8 @@ export class BaseRoutingContext {
 export class RoutingContext extends BaseRoutingContext {
   protected history: History;
 
-  public constructor(routesMap: Map<string, ExtendedRouteConfig>, location: Location, history: History) {
-    super(routesMap, location);
+  public constructor(routesMap: Map<string, ExtendedRouteConfig>, history: History) {
+    super(routesMap);
 
     this.history = history;
   }
@@ -113,23 +112,32 @@ export class RoutingContext extends BaseRoutingContext {
 }
 
 /* eslint-disable import/export */
-export function buildRoutingContext(routes: NamedRouteConfig[], location: Location): BaseRoutingContext;
 export function buildRoutingContext(
   routes: NamedRouteConfig[],
-  location: Location,
+  location?: Location | string | null,
+): BaseRoutingContext;
+export function buildRoutingContext(
+  routes: NamedRouteConfig[],
+  location?: Location | string | null,
   history?: History
 ): RoutingContext;
 export function buildRoutingContext(
   routes: NamedRouteConfig[],
-  location: Location,
+  location?: Location | string | null,
   history?: History,
 ): BaseRoutingContext | RoutingContext {
   const map = mapRoutes(routes);
 
-  if (!history) {
-    return new BaseRoutingContext(map, location);
+  const context = history ? new RoutingContext(map, history) : new BaseRoutingContext(map);
+  if (location) {
+    context.location = typeof location === 'string' ? {
+      pathname: location,
+      search: '',
+      state: {},
+      hash: '',
+    } : location;
   }
 
-  return new RoutingContext(map, location, history);
+  return context;
 }
 /* eslint-enable import/export */
