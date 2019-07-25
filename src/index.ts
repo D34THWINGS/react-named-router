@@ -11,7 +11,7 @@ export { buildRoutingContext, BaseRoutingContext, RoutingContext } from './utils
 export { withNamedRouting, WithNamedRoutingProps } from './withNamedRouting';
 
 export {
-  default as NamedRouter,
+  NamedRouter,
   NamedRouterProps,
   useNamedRouting,
   NamedRouteConfig,
