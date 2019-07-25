@@ -2,8 +2,8 @@ import React from 'react';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { StaticRouter, StaticRouterProps } from 'react-router';
-import NamedRouter, { NamedRouteConfig } from '../NamedRouter';
-import NamedRoute from '../NamedRoute';
+import { NamedRouter, NamedRouteConfig } from '../NamedRouter';
+import { NamedRoute } from '../NamedRoute';
 
 Enzyme.configure({ adapter: new Adapter() });
 

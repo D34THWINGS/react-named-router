@@ -10,7 +10,7 @@ export interface NamedSwitchProps {
   children?: React.ReactNode;
 }
 
-const NamedSwitch = ({ location: locationFromProps, children }: NamedSwitchProps) => {
+export const NamedSwitch: React.FC<NamedSwitchProps> = ({ location: locationFromProps, children }) => {
   const context = useNamedRouting();
 
   invariant(context, 'You should not use <NamedSwitch> outside a <NamedRouter>');
@@ -35,5 +35,3 @@ const NamedSwitch = ({ location: locationFromProps, children }: NamedSwitchProps
     ? React.cloneElement(element, { location, computedMatch: match })
     : null;
 };
-
-export default NamedSwitch;

@@ -13,11 +13,11 @@ export interface NamedRouteComponentProps<P, C, S> extends RouteComponentProps<P
   route: NamedRouteConfig;
 }
 
-const NamedRoute = ({
+export const NamedRoute: React.FC<NamedRouteProps> = ({
   name,
   children,
   ...otherProps
-}: NamedRouteProps) => {
+}) => {
   const context = useNamedRouting();
 
   invariant(context, 'You should not use <NamedRoute> outside a <NamedRouter>');
@@ -30,5 +30,3 @@ const NamedRoute = ({
     </Route>
   );
 };
-
-export default NamedRoute;

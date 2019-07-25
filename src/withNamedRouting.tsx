@@ -9,7 +9,9 @@ export interface WithNamedRoutingProps {
   namedRouting: BaseRoutingContext | RoutingContext;
 }
 
-function withNamedRouting<TProps extends WithNamedRoutingProps>(Component: React.ComponentType<WithNamedRoutingProps>) {
+export function withNamedRouting<TProps extends WithNamedRoutingProps>(
+  Component: React.ComponentType<WithNamedRoutingProps>,
+) {
   const namedRouting = useNamedRouting();
   const WrappedComponent = (props: Omit<TProps, keyof WithNamedRoutingProps>) => (
     <Component {...props} namedRouting={namedRouting} />
@@ -17,5 +19,3 @@ function withNamedRouting<TProps extends WithNamedRoutingProps>(Component: React
   WrappedComponent.displayName = `WithRouting(${Component.displayName || Component.name})`;
   return WrappedComponent;
 }
-
-export default withNamedRouting;

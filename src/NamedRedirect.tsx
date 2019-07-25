@@ -9,11 +9,11 @@ export interface NamedRedirectProps<TParams = object> extends RedirectProps {
   params?: TParams;
 }
 
-const NamedRedirect = ({
+export const NamedRedirect: React.FC<NamedRedirectProps> = ({
   to,
   params,
   ...otherProps
-}: NamedRedirectProps) => {
+}) => {
   const context = useNamedRouting();
 
   invariant(context, 'You should not use <NamedRedirect> outside a <NamedRouter>');
@@ -24,5 +24,3 @@ const NamedRedirect = ({
     <Redirect {...otherProps} to={getPath(to, params)} />
   );
 };
-
-export default NamedRedirect;

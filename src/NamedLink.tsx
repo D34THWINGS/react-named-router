@@ -10,12 +10,12 @@ export interface NamedLinkProps<TParams = object> extends LinkProps {
   children?: React.ReactNode;
 }
 
-const NamedLink = ({
+export const NamedLink: React.FC<NamedLinkProps> = ({
   to,
   params,
   children,
   ...otherProps
-}: NamedLinkProps) => {
+}) => {
   const context = useNamedRouting();
 
   invariant(context, 'You should not use <NamedLink> outside a <NamedRouter>');
@@ -28,5 +28,3 @@ const NamedLink = ({
     </Link>
   );
 };
-
-export default NamedLink;

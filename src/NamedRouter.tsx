@@ -6,7 +6,7 @@ import { Location } from 'history';
 
 import { BaseRoutingContext, buildRoutingContext, RoutingContext } from './utils';
 
-export type NamedRouteConfig<T = object> = T & Omit<RouteProps, 'children'> & {
+export type NamedRouteConfig<T = { [key: string]: any }> = T & Omit<RouteProps, 'children'> & {
   name?: string;
   path?: string;
   routes?: NamedRouteConfig<T>[];
@@ -25,12 +25,12 @@ export const routerContext = createContext<BaseRoutingContext | RoutingContext>(
 ));
 export const useNamedRouting = () => useContext(routerContext);
 
-const NamedRouter = ({
+export const NamedRouter: React.FC<NamedRouterProps> = ({
   routerComponent: RouterComponent = BrowserRouter,
   routerProps,
   routes,
   children,
-}: NamedRouterProps) => (
+}) => (
   <RouterComponent {...routerProps}>
     <Route>
       {({ history, location }) => (
@@ -41,5 +41,3 @@ const NamedRouter = ({
     </Route>
   </RouterComponent>
 );
-
-export default NamedRouter;
