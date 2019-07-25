@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="0.3.2"></a>
+## 0.3.2 (2019-07-25)
+
+### Fixed
+
+- 🐛 Fix wrongly exporter NamedRouter [[bd2cb17](https://github.com/D34THWINGS/react-named-router/commit/bd2cb17a3794de8638404a915ba8d65ff816cd89)]
+
+
 <a name="0.3.1"></a>
 ## 0.3.1 (2019-07-25)
 
