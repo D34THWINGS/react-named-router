@@ -1,5 +1,21 @@
 # Changelog
 
+<a name="0.3.1"></a>
+## 0.3.1 (2019-07-25)
+
+### Added
+
+- ✨ Location param can be null or a string when building context [[21f0c5f](https://github.com/D34THWINGS/react-named-router/commit/21f0c5f6a0f826a38004f55868f3348ac27458f2)]
+
+### Changed
+
+- ♻️ Use named import/export [[ca1a49f](https://github.com/D34THWINGS/react-named-router/commit/ca1a49fccc4dc1c264e4efcab3378408f4488b48)]
+
+### Fixed
+
+- 🐛 Fix not working wildcard routes with NamedSwitch [[5c302d7](https://github.com/D34THWINGS/react-named-router/commit/5c302d7619d3ec8bf25aa545ee7d0941d30e1f60)]
+
+
 <a name="0.3.0"></a>
 ## 0.3.0 (2019-07-23)
 
