@@ -28,3 +28,5 @@ export const NamedLink: React.FC<NamedLinkProps> = ({
     </Link>
   );
 };
+
+NamedLink.displayName = 'NamedLink';

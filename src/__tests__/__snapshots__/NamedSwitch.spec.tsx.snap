@@ -2,26 +2,8 @@
 
 exports[`NamedSwitch should render only first matching route 1`] = `
 <NamedSwitch>
-  <NamedRoute
-    computedMatch={
-      Object {
-        "isExact": true,
-        "params": Object {},
-        "path": "/foo/bar",
-        "url": "/foo/bar",
-      }
-    }
-    location={
-      Object {
-        "hash": "",
-        "pathname": "/foo/bar",
-        "search": "",
-        "state": undefined,
-      }
-    }
-    name="bar"
-  >
-    <Route
+  <Route>
+    <NamedRoute
       computedMatch={
         Object {
           "isExact": true,
@@ -39,76 +21,14 @@ exports[`NamedSwitch should render only first matching route 1`] = `
         }
       }
       name="bar"
-      parents={Array []}
-      path="/foo/bar"
-      regex={/\\^\\\\/foo\\\\/bar\\\\/\\?\\$/}
-    />
-  </NamedRoute>
-</NamedSwitch>
-`;
-
-exports[`NamedSwitch should spread matching route properties 1`] = `
-<NamedSwitch>
-  <NamedRoute
-    computedMatch={
-      Object {
-        "isExact": true,
-        "params": Object {},
-        "path": "/foo/bar",
-        "url": "/foo/bar",
-      }
-    }
-    location={
-      Object {
-        "hash": "",
-        "pathname": "/foo/bar",
-        "search": "",
-        "state": undefined,
-      }
-    }
-    name="bar"
-  >
-    <Route
-      component={[Function]}
-      computedMatch={
-        Object {
-          "isExact": true,
-          "params": Object {},
-          "path": "/foo/bar",
-          "url": "/foo/bar",
-        }
-      }
-      location={
-        Object {
-          "hash": "",
-          "pathname": "/foo/bar",
-          "search": "",
-          "state": undefined,
-        }
-      }
-      name="bar"
-      parents={Array []}
-      path="/foo/bar"
-      regex={/\\^\\\\/foo\\\\/bar\\\\/\\?\\$/}
     >
-      <BarComponent
-        history={
+      <Route
+        computedMatch={
           Object {
-            "action": "POP",
-            "block": [Function],
-            "createHref": [Function],
-            "go": [Function],
-            "goBack": [Function],
-            "goForward": [Function],
-            "listen": [Function],
-            "location": Object {
-              "hash": "",
-              "pathname": "/foo/bar",
-              "search": "",
-              "state": undefined,
-            },
-            "push": [Function],
-            "replace": [Function],
+            "isExact": true,
+            "params": Object {},
+            "path": "/foo/bar",
+            "url": "/foo/bar",
           }
         }
         location={
@@ -119,7 +39,69 @@ exports[`NamedSwitch should spread matching route properties 1`] = `
             "state": undefined,
           }
         }
-        match={
+        name="bar"
+        parents={Array []}
+        path="/foo/bar"
+        regex={/\\^\\\\/foo\\\\/bar\\\\/\\?\\$/}
+      />
+    </NamedRoute>
+  </Route>
+</NamedSwitch>
+`;
+
+exports[`NamedSwitch should render wildcard route if none matched 1`] = `
+<NamedSwitch>
+  <Route>
+    <Route
+      computedMatch={
+        Object {
+          "isExact": false,
+          "params": Object {},
+          "path": "/",
+          "url": "/",
+        }
+      }
+      location={
+        Object {
+          "hash": "",
+          "pathname": "/foo/bar",
+          "search": "",
+          "state": undefined,
+        }
+      }
+      render={[Function]}
+    >
+      Not found
+    </Route>
+  </Route>
+</NamedSwitch>
+`;
+
+exports[`NamedSwitch should spread matching route properties 1`] = `
+<NamedSwitch>
+  <Route>
+    <NamedRoute
+      computedMatch={
+        Object {
+          "isExact": true,
+          "params": Object {},
+          "path": "/foo/bar",
+          "url": "/foo/bar",
+        }
+      }
+      location={
+        Object {
+          "hash": "",
+          "pathname": "/foo/bar",
+          "search": "",
+          "state": undefined,
+        }
+      }
+      name="bar"
+    >
+      <Route
+        component={[Function]}
+        computedMatch={
           Object {
             "isExact": true,
             "params": Object {},
@@ -127,13 +109,63 @@ exports[`NamedSwitch should spread matching route properties 1`] = `
             "url": "/foo/bar",
           }
         }
-        staticContext={Object {}}
+        location={
+          Object {
+            "hash": "",
+            "pathname": "/foo/bar",
+            "search": "",
+            "state": undefined,
+          }
+        }
+        name="bar"
+        parents={Array []}
+        path="/foo/bar"
+        regex={/\\^\\\\/foo\\\\/bar\\\\/\\?\\$/}
       >
-        <div>
-          Bar
-        </div>
-      </BarComponent>
-    </Route>
-  </NamedRoute>
+        <BarComponent
+          history={
+            Object {
+              "action": "POP",
+              "block": [Function],
+              "createHref": [Function],
+              "go": [Function],
+              "goBack": [Function],
+              "goForward": [Function],
+              "listen": [Function],
+              "location": Object {
+                "hash": "",
+                "pathname": "/foo/bar",
+                "search": "",
+                "state": undefined,
+              },
+              "push": [Function],
+              "replace": [Function],
+            }
+          }
+          location={
+            Object {
+              "hash": "",
+              "pathname": "/foo/bar",
+              "search": "",
+              "state": undefined,
+            }
+          }
+          match={
+            Object {
+              "isExact": true,
+              "params": Object {},
+              "path": "/foo/bar",
+              "url": "/foo/bar",
+            }
+          }
+          staticContext={Object {}}
+        >
+          <div>
+            Bar
+          </div>
+        </BarComponent>
+      </Route>
+    </NamedRoute>
+  </Route>
 </NamedSwitch>
 `;

@@ -30,3 +30,5 @@ export const NamedRoute: React.FC<NamedRouteProps> = ({
     </Route>
   );
 };
+
+NamedRoute.displayName = 'NamedRoute';

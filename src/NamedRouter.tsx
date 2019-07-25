@@ -41,3 +41,5 @@ export const NamedRouter: React.FC<NamedRouterProps> = ({
     </Route>
   </RouterComponent>
 );
+
+NamedRouter.displayName = 'NamedRouter';

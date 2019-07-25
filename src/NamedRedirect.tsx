@@ -24,3 +24,5 @@ export const NamedRedirect: React.FC<NamedRedirectProps> = ({
     <Redirect {...otherProps} to={getPath(to, params)} />
   );
 };
+
+NamedRedirect.displayName = 'NamedRedirect';

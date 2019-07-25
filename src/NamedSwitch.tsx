@@ -1,7 +1,7 @@
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Location } from 'history';
-import { matchPath, match as Match } from 'react-router';
+import { matchPath, match as Match, Route } from 'react-router';
 import invariant from 'tiny-invariant';
 import { useNamedRouting } from './NamedRouter';
 
@@ -17,21 +17,31 @@ export const NamedSwitch: React.FC<NamedSwitchProps> = ({ location: locationFrom
 
   const location = locationFromProps || (context.location as Location);
 
-  let element = null;
-  let match: null | Match = null;
+  return (
+    <Route>
+      {({ match: parentMatch }) => {
+        let element = null;
+        let match: null | Match = null;
 
-  React.Children.forEach(children, (child) => {
-    if (match === null && React.isValidElement(child)) {
-      element = child;
+        React.Children.forEach(children, (child) => {
+          if (match === null && React.isValidElement(child)) {
+            element = child;
 
-      const path = child.props.name ? context.getRawPath(child.props.name) : child.props.from;
-      const route = child.props.name ? context.getRoute(child.props.name) : {};
+            const path = child.props.name ? context.getRawPath(child.props.name) : child.props.from;
+            const route = child.props.name ? context.getRoute(child.props.name) : {};
 
-      match = matchPath(location.pathname, { ...route, ...child.props, path });
-    }
-  });
+            match = path
+              ? matchPath(location.pathname, { ...route, ...child.props, path })
+              : parentMatch;
+          }
+        });
 
-  return match && element
-    ? React.cloneElement(element, { location, computedMatch: match })
-    : null;
+        return match && element
+          ? React.cloneElement(element, { location, computedMatch: match })
+          : null;
+      }}
+    </Route>
+  );
 };
+
+NamedSwitch.displayName = 'NamedSwitch';

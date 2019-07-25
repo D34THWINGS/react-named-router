@@ -1,7 +1,7 @@
 import React from 'react';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { StaticRouter, StaticRouterProps } from 'react-router';
+import { Route, StaticRouter, StaticRouterProps } from 'react-router';
 import { NamedSwitch } from '../NamedSwitch';
 import { NamedRouter, NamedRouteConfig } from '../NamedRouter';
 import { NamedRoute } from '../NamedRoute';
@@ -51,6 +51,31 @@ describe('NamedSwitch', () => {
         <NamedSwitch>
           <NamedRoute name="foo" />
           <NamedRoute name="bar" />
+        </NamedSwitch>
+      </NamedRouter>
+    ));
+
+    // Then
+    expect(wrapper.find('NamedSwitch')).toMatchSnapshot();
+  });
+
+  it('should render wildcard route if none matched', () => {
+    // Given
+    const routerProps: StaticRouterProps = { location: '/foo/bar' };
+    const routes: NamedRouteConfig[] = [
+      { name: 'foo', path: '/foo', exact: true },
+    ];
+
+    // When
+    const wrapper = mount((
+      <NamedRouter
+        routes={routes}
+        routerComponent={StaticRouter}
+        routerProps={routerProps}
+      >
+        <NamedSwitch>
+          <NamedRoute name="foo" />
+          <Route render={() => 'Not found'} />
         </NamedSwitch>
       </NamedRouter>
     ));
