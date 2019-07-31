@@ -36,12 +36,13 @@ export const buildRoutePath = (map: Map<string, ExtendedRouteConfig>, name: stri
 
 export const mapRoutes = (
   routes: NamedRouteConfig[],
+  basename: string = '',
   parents: string[] = [],
   map: Map<string, ExtendedRouteConfig> = new Map(),
 ) => {
   routes.forEach((route) => {
     if (route.routes) {
-      mapRoutes(route.routes, route.name ? [...parents, route.name] : parents, map);
+      mapRoutes(route.routes, basename, route.name ? [...parents, route.name] : parents, map);
     }
 
     if (!route.name && route.path) {
@@ -63,7 +64,7 @@ export const mapRoutes = (
       parents,
       ...(route.path ? {
         regex: new RegExp(
-          `^${route.path.replace(/\/:\w+\?/g, '/?([\\w_-]*)').replace(/:\w+/g, '([\\w_-]+)')}\\/?$`,
+          `^${(basename + route.path).replace(/\/:\w+\?/g, '/?([\\w_-]*)').replace(/:\w+/g, '([\\w_-]+)')}\\/?$`,
         ),
       } : {}),
     });
@@ -123,13 +124,16 @@ export class RoutingContext {
     .replace(buildRoutePath(this.routesMap, name, params));
 }
 
+export type RoutingContextArg = Omit<Partial<RouteChildrenProps<any, any>>, 'location'> & {
+  location: string | RouteChildrenProps<any, any>['location'];
+}
+
 export const buildRoutingContext = (
   routes: NamedRouteConfig[],
-  routerContext: Omit<Partial<RouteChildrenProps<any, any>>, 'location'> & {
-    location: string | RouteChildrenProps<any, any>['location'];
-  },
+  routerContext: RoutingContextArg,
+  basename?: string,
 ): RoutingContext => {
-  const map = mapRoutes(routes);
+  const map = mapRoutes(routes, basename);
 
   let finalContext = routerContext;
   if (typeof routerContext.location === 'string') {

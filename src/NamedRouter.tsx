@@ -31,7 +31,9 @@ export const NamedRouter: React.FC<NamedRouterProps> = ({
   <RouterComponent {...routerProps}>
     <Route>
       {routerContext => (
-        <namedRouterContext.Provider value={buildRoutingContext(routes, routerContext)}>
+        <namedRouterContext.Provider
+          value={buildRoutingContext(routes, routerContext, routerProps && routerProps.basename)}
+        >
           {children}
         </namedRouterContext.Provider>
       )}

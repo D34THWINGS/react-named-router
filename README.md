@@ -333,7 +333,7 @@ Based on the React Router [Switch](https://reacttraining.com/react-router/web/ap
 |---------------------|------------|----------|----------------------------------------------------------------------|
 | **location**        | `Location` |          | Location to be used for route matching, defaults to context location |
 
-### `buildRouterContext(routes: NamedRouteConfig[])`
+### `buildRouterContext(routes: NamedRouteConfig[], routerContext: RoutingContextArg, basename?: string)`
 
 Utility function that can be used to build the context on server side rendering to get the name of the current route.
 This is useful when you need to generate meta tags, page title or anything else depending on which route is matching.
