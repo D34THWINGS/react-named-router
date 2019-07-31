@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { useNamedRouting } from './NamedRouter';
-import { BaseRoutingContext, RoutingContext } from './utils';
+import { useNamedRouting } from './hooks';
+import { RoutingContext } from './utils';
 
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
 export interface WithNamedRoutingProps {
-  namedRouting: BaseRoutingContext | RoutingContext;
+  namedRouting: RoutingContext;
 }
 
 export function withNamedRouting<TProps extends WithNamedRoutingProps>(

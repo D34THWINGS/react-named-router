@@ -1,10 +1,8 @@
-import React, { createContext, useContext } from 'react';
+import React, { createContext } from 'react';
 import { BrowserRouter, BrowserRouterProps, RouteProps } from 'react-router-dom';
 import { Route } from 'react-router';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { Location } from 'history';
 
-import { BaseRoutingContext, buildRoutingContext, RoutingContext } from './utils';
+import { buildRoutingContext, RoutingContext } from './utils';
 
 export type NamedRouteConfig<T = { [key: string]: any }> = T & Omit<RouteProps, 'children'> & {
   name?: string;
@@ -19,11 +17,10 @@ export type NamedRouterProps<TRouterProps = BrowserRouterProps> = TRouterProps &
   children?: React.ReactNode;
 }
 
-export const routerContext = createContext<BaseRoutingContext | RoutingContext>(buildRoutingContext(
+export const namedRouterContext = createContext<RoutingContext>(buildRoutingContext(
   [],
-  {} as unknown as Location,
+  { location: '/' },
 ));
-export const useNamedRouting = () => useContext(routerContext);
 
 export const NamedRouter: React.FC<NamedRouterProps> = ({
   routerComponent: RouterComponent = BrowserRouter,
@@ -33,10 +30,10 @@ export const NamedRouter: React.FC<NamedRouterProps> = ({
 }) => (
   <RouterComponent {...routerProps}>
     <Route>
-      {({ history, location }) => (
-        <routerContext.Provider value={buildRoutingContext(routes, location, history)}>
+      {routerContext => (
+        <namedRouterContext.Provider value={buildRoutingContext(routes, routerContext)}>
           {children}
-        </routerContext.Provider>
+        </namedRouterContext.Provider>
       )}
     </Route>
   </RouterComponent>

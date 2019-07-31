@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, LinkProps } from 'react-router-dom';
 import invariant from 'tiny-invariant';
 
-import { useNamedRouting } from './NamedRouter';
+import { useNamedRouting } from './hooks';
 
 export interface NamedLinkProps<TParams = object> extends LinkProps {
   to: string;

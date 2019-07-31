@@ -338,11 +338,27 @@ Based on the React Router [Switch](https://reacttraining.com/react-router/web/ap
 Utility function that can be used to build the context on server side rendering to get the name of the current route.
 This is useful when you need to generate meta tags, page title or anything else depending on which route is matching.
 
+### `useParams()`
+
+React hook that enables you to quickly retrieve current matching route params (see `BaseRoutingContext.params`).
+
+### `useLocation()`
+
+Another React hook to retrieve current location. Contains pathname, state, etc.
+
 ### Context API
 
 #### `BaseRoutingContext`
 
-This object is returned when history API is not available (mostly in server side environment).
+This object is returned when using `withNamedRouting` or `useNamedRouting`.
+
+##### `location: Location`
+
+Current location used within the router, can be useful to get `location.pathname` or `location.state`.
+
+##### `params: any`
+
+Current matching route params. Can be used to get url params from anywhere within the application.
 
 ##### `match(pathname: string)`
 
@@ -361,24 +377,19 @@ for parameterized URLs generation. Throws also an error if required parameter is
 
 Retrieve route object for given route name. Throws an error if route is not found.
 
-##### `location: Location`
-
-Current location used within the router, can be useful to get `location.pathname` or `location.state`.
-
-#### `RoutingContext`
-
-When history API is available, this object will be returned by both the HOC and the React Hook. It extends the
-`BaseRoutingContext`.
-
 ##### `push(name: string, params?: object)`
 
 Issue a push into the history API (`pushState` for HTML5 History) using the given route name and params. Throws the
 same errors as `getPath`.
 
+⚠ This method will throw an error if used without history being available (typically on server side).
+
 ##### `replace(name: string, params?: object)`
 
 Replaces current location, using history API (`replaceState` for HTML5 History) with the given route name and params.
 Throws the same errors as `getPath`.
+
+⚠ This method will throw an error if used without history being available (typically on server side).
 
 ## Contribute
 

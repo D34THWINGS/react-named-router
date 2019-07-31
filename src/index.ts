@@ -6,13 +6,10 @@ export { NamedRoute, NamedRouteProps, NamedRouteComponentProps } from './NamedRo
 
 export { NamedSwitch, NamedSwitchProps } from './NamedSwitch';
 
-export { buildRoutingContext, BaseRoutingContext, RoutingContext } from './utils';
+export { buildRoutingContext, RoutingContext } from './utils';
 
 export { withNamedRouting, WithNamedRoutingProps } from './withNamedRouting';
 
-export {
-  NamedRouter,
-  NamedRouterProps,
-  useNamedRouting,
-  NamedRouteConfig,
-} from './NamedRouter';
+export { NamedRouter, NamedRouterProps, NamedRouteConfig } from './NamedRouter';
+
+export { useNamedRouting, useLocation, useParams } from './hooks';

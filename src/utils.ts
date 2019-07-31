@@ -1,11 +1,13 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { History, Location } from 'history';
-
+import { RouteChildrenProps } from 'react-router';
 import { NamedRouteConfig } from './NamedRouter';
 
 export interface ExtendedRouteConfig extends NamedRouteConfig {
   parents: string[];
   regex?: RegExp;
+}
+
+type RouteChildrenPropsWithLocation = Omit<Partial<RouteChildrenProps<any, any>>, 'location'> & {
+  location: RouteChildrenProps<any, any>['location'];
 }
 
 const buildRawPath = (map: Map<string, ExtendedRouteConfig>, name: string) => {
@@ -70,13 +72,33 @@ export const mapRoutes = (
   return map;
 };
 
-export class BaseRoutingContext {
+export class RoutingContext {
   protected readonly routesMap: Map<string, ExtendedRouteConfig>;
 
-  public location: Location | null = null;
+  protected routerContext: RouteChildrenPropsWithLocation;
 
-  public constructor(routesMap: Map<string, ExtendedRouteConfig>) {
+  public get location() {
+    return this.routerContext.location;
+  }
+
+  public get history() {
+    if (!this.routerContext.history) {
+      throw new Error('History API cannot be used on server side');
+    }
+
+    return this.routerContext.history;
+  }
+
+  public get params() {
+    return this.routerContext.match ? this.routerContext.match.params : {};
+  }
+
+  public constructor(
+    routesMap: Map<string, ExtendedRouteConfig>,
+    routerContext: RouteChildrenPropsWithLocation,
+  ) {
     this.routesMap = routesMap;
+    this.routerContext = routerContext;
   }
 
   public match = (pathname: string) => Array.from(this.routesMap.values())
@@ -92,17 +114,7 @@ export class BaseRoutingContext {
       throw new Error(`Undefined route "${name}"`);
     }
     return route;
-  }
-}
-
-export class RoutingContext extends BaseRoutingContext {
-  protected history: History;
-
-  public constructor(routesMap: Map<string, ExtendedRouteConfig>, history: History) {
-    super(routesMap);
-
-    this.history = history;
-  }
+  };
 
   public push = <TParams>(name: string, params?: TParams) => this.history
     .push(buildRoutePath(this.routesMap, name, params));
@@ -111,33 +123,27 @@ export class RoutingContext extends BaseRoutingContext {
     .replace(buildRoutePath(this.routesMap, name, params));
 }
 
-/* eslint-disable import/export */
-export function buildRoutingContext(
+export const buildRoutingContext = (
   routes: NamedRouteConfig[],
-  location?: Location | string | null,
-): BaseRoutingContext;
-export function buildRoutingContext(
-  routes: NamedRouteConfig[],
-  location?: Location | string | null,
-  history?: History
-): RoutingContext;
-export function buildRoutingContext(
-  routes: NamedRouteConfig[],
-  location?: Location | string | null,
-  history?: History,
-): BaseRoutingContext | RoutingContext {
+  routerContext: Omit<Partial<RouteChildrenProps<any, any>>, 'location'> & {
+    location: string | RouteChildrenProps<any, any>['location'];
+  },
+): RoutingContext => {
   const map = mapRoutes(routes);
 
-  const context = history ? new RoutingContext(map, history) : new BaseRoutingContext(map);
-  if (location) {
-    context.location = typeof location === 'string' ? {
-      pathname: location,
-      search: '',
-      state: {},
-      hash: '',
-    } : location;
+  let finalContext = routerContext;
+  if (typeof routerContext.location === 'string') {
+    const [pathname, search] = routerContext.location.split('?');
+    finalContext = {
+      ...routerContext,
+      location: {
+        pathname,
+        search: search ? `?${search}` : '',
+        state: {},
+        hash: '',
+      },
+    };
   }
 
-  return context;
-}
-/* eslint-enable import/export */
+  return new RoutingContext(map, finalContext as RouteChildrenPropsWithLocation);
+};

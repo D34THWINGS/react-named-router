@@ -6,7 +6,6 @@ import {
   buildRoutingContext,
   buildRoutePath,
   ExtendedRouteConfig,
-  BaseRoutingContext,
   RoutingContext,
 } from '../utils';
 
@@ -76,83 +75,12 @@ describe('Utils', () => {
   });
 
   describe('#buildRoutingContext()', () => {
-    it('should return base context if no history is provided', () => {
-      // When
-      const context = buildRoutingContext([]);
-
-      // Then
-      expect(context).toBeInstanceOf(BaseRoutingContext);
-    });
-
-    it('should return full context if history is provided', () => {
-      // When
-      const context = buildRoutingContext([], null, createMemoryHistory());
-
-      // Then
-      expect(context).toBeInstanceOf(RoutingContext);
-    });
-
     it('should generate location object from string location', () => {
       // When
-      const context = buildRoutingContext([], '/foo', createMemoryHistory());
+      const context = buildRoutingContext([], { location: '/foo', history: createMemoryHistory() });
 
       // Then
       expect(context.location).toEqual({ pathname: '/foo', search: '', state: {}, hash: '' });
-    });
-  });
-
-  describe('BaseRoutingContext', () => {
-    const routesMap = new Map<string, ExtendedRouteConfig>([['test', {
-      path: '/test',
-      regex: /^\/test$/,
-      parents: [],
-    }]]);
-
-    describe('#getPath()', () => {
-      it('should return path for given route name', () => {
-        // Given
-        const baseRoutingContext = new BaseRoutingContext(routesMap);
-
-        // When
-        const path = baseRoutingContext.getPath('test');
-
-        // Then
-        expect(path).toEqual('/test');
-      });
-    });
-
-    describe('#getRoute()', () => {
-      it('should return path for given route name', () => {
-        // Given
-        const baseRoutingContext = new BaseRoutingContext(routesMap);
-
-        // When
-        const route = baseRoutingContext.getRoute('test');
-
-        // Then
-        expect(route).toEqual(routesMap.get('test'));
-      });
-
-      it('should throw if route does not exist', () => {
-        // Given
-        const baseRoutingContext = new BaseRoutingContext(routesMap);
-
-        // Then
-        expect(() => baseRoutingContext.getRoute('invalid')).toThrow(new Error('Undefined route "invalid"'));
-      });
-    });
-
-    describe('#match()', () => {
-      it('should match route for given pathname', () => {
-        // Given
-        const baseRoutingContext = new BaseRoutingContext(routesMap);
-
-        // When
-        const match = baseRoutingContext.match('/test');
-
-        // Then
-        expect(match).toEqual(routesMap.get('test'));
-      });
     });
   });
 
@@ -167,7 +95,7 @@ describe('Utils', () => {
       it('should call push on history with matching route', () => {
         // Given
         const history = createMemoryHistory();
-        const routingContext = new RoutingContext(routesMap, history);
+        const routingContext = new RoutingContext(routesMap, { history, location: {} as any });
         const historyPushMock = jest.spyOn(history, 'push');
 
         // When
@@ -182,7 +110,7 @@ describe('Utils', () => {
       it('should call replace on history with matching route', () => {
         // Given
         const history = createMemoryHistory();
-        const routingContext = new RoutingContext(routesMap, history);
+        const routingContext = new RoutingContext(routesMap, { history, location: {} as any });
         const historyReplaceMock = jest.spyOn(history, 'replace');
 
         // When
@@ -190,6 +118,53 @@ describe('Utils', () => {
 
         // Then
         expect(historyReplaceMock).toHaveBeenCalledWith('/test');
+      });
+    });
+
+    describe('#getPath()', () => {
+      it('should return path for given route name', () => {
+        // Given
+        const baseRoutingContext = new RoutingContext(routesMap, {} as any);
+
+        // When
+        const path = baseRoutingContext.getPath('test');
+
+        // Then
+        expect(path).toEqual('/test');
+      });
+    });
+
+    describe('#getRoute()', () => {
+      it('should return path for given route name', () => {
+        // Given
+        const baseRoutingContext = new RoutingContext(routesMap, {} as any);
+
+        // When
+        const route = baseRoutingContext.getRoute('test');
+
+        // Then
+        expect(route).toEqual(routesMap.get('test'));
+      });
+
+      it('should throw if route does not exist', () => {
+        // Given
+        const baseRoutingContext = new RoutingContext(routesMap, {} as any);
+
+        // Then
+        expect(() => baseRoutingContext.getRoute('invalid')).toThrow(new Error('Undefined route "invalid"'));
+      });
+    });
+
+    describe('#match()', () => {
+      it('should match route for given pathname', () => {
+        // Given
+        const baseRoutingContext = new RoutingContext(routesMap, {} as any);
+
+        // When
+        const match = baseRoutingContext.match('/test');
+
+        // Then
+        expect(match).toEqual(routesMap.get('test'));
       });
     });
   });

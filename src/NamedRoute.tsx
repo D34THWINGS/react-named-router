@@ -2,7 +2,8 @@ import React from 'react';
 import { Route, RouteComponentProps, RouteProps } from 'react-router-dom';
 import invariant from 'tiny-invariant';
 
-import { NamedRouteConfig, useNamedRouting } from './NamedRouter';
+import { NamedRouteConfig } from './NamedRouter';
+import { useNamedRouting } from './hooks';
 
 export interface NamedRouteProps<TParams = object> extends Omit<RouteProps, 'path'> {
   name: string;

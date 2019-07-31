@@ -3,7 +3,7 @@ import React from 'react';
 import { Location } from 'history';
 import { matchPath, match as Match, Route } from 'react-router';
 import invariant from 'tiny-invariant';
-import { useNamedRouting } from './NamedRouter';
+import { useNamedRouting } from './hooks';
 
 export interface NamedSwitchProps {
   location?: Location;

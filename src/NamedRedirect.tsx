@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect, RedirectProps } from 'react-router-dom';
 import invariant from 'tiny-invariant';
 
-import { useNamedRouting } from './NamedRouter';
+import { useNamedRouting } from './hooks';
 
 export interface NamedRedirectProps<TParams = object> extends RedirectProps {
   to: string;
