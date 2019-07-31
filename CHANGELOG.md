@@ -1,5 +1,14 @@
 # Changelog
 
+<a name="0.4.0"></a>
+## 0.4.0 (2019-07-31)
+
+### Added
+
+- ✨ Add new hooks and new context properties [[2a1e9c6](https://github.com/D34THWINGS/react-named-router/commit/2a1e9c69c80aacfe31d692443ff6b328a9ae9e12)]
+- ✨ Support basename in &#x60;RoutingContext.match&#x60; method [[4ab2759](https://github.com/D34THWINGS/react-named-router/commit/4ab2759fa65839164987adfc7f7854d28b2cb5e0)]
+
+
 <a name="0.3.2"></a>
 ## 0.3.2 (2019-07-25)
 
