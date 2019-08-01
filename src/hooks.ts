@@ -7,4 +7,5 @@ export const useNamedRouting = () => useContext(namedRouterContext);
 
 export const useLocation = <TState = any>(): Location<TState> => useNamedRouting().location;
 
-export const useParams = <TParams = any>(): TParams => useNamedRouting().params;
+export const useParams = <TParams extends { [key: string]: string } = {}>(): TParams => (
+  useNamedRouting().params as TParams);

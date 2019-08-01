@@ -1,4 +1,4 @@
-import { RouteChildrenProps } from 'react-router';
+import { matchPath, RouteChildrenProps } from 'react-router';
 import { NamedRouteConfig } from './NamedRouter';
 
 export interface ExtendedRouteConfig extends NamedRouteConfig {
@@ -73,6 +73,8 @@ export const mapRoutes = (
   return map;
 };
 
+const defaultParams = {};
+
 export class RoutingContext {
   protected readonly routesMap: Map<string, ExtendedRouteConfig>;
 
@@ -90,8 +92,13 @@ export class RoutingContext {
     return this.routerContext.history;
   }
 
-  public get params() {
-    return this.routerContext.match ? this.routerContext.match.params : {};
+  public get params(): { [key: string]: string } {
+    const route = this.match(this.location.pathname);
+    if (!route || !route.path) {
+      return defaultParams;
+    }
+    const match = matchPath(this.location.pathname, route);
+    return match ? match.params : defaultParams;
   }
 
   public constructor(
