@@ -344,10 +344,13 @@ Based on the React Router [Switch](https://reacttraining.com/react-router/web/ap
 |---------------------|------------|----------|----------------------------------------------------------------------|
 | **location**        | `Location` |          | Location to be used for route matching, defaults to context location |
 
-### `buildRouterContext(routes: NamedRouteConfig[], routerContext: RoutingContextArg, basename?: string)`
+### `buildRoutingContext(routes: NamedRouteConfig[], routerContext: RoutingContextArg, basename?: string)`
 
 Utility function that can be used to build the context on server side rendering to get the name of the current route.
 This is useful when you need to generate meta tags, page title or anything else depending on which route is matching.
+
+⚠️ If you use a `basename` on frontend, be sure to pass it to `buildRoutingContext` otherwise `context.match` won't
+work properly.
 
 ### `useParams()`
 
@@ -393,14 +396,14 @@ Retrieve route object for given route name. Throws an error if route is not foun
 Issue a push into the history API (`pushState` for HTML5 History) using the given route name and params. Throws the
 same errors as `getPath`.
 
-⚠ This method will throw an error if used without history being available (typically on server side).
+⚠️ This method will throw an error if used without history being available (typically on server side).
 
 ##### `replace(name: string, params?: object)`
 
 Replaces current location, using history API (`replaceState` for HTML5 History) with the given route name and params.
 Throws the same errors as `getPath`.
 
-⚠ This method will throw an error if used without history being available (typically on server side).
+⚠️ This method will throw an error if used without history being available (typically on server side).
 
 ## Contribute
 
