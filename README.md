@@ -296,7 +296,7 @@ props except `to` which is configured by Named Router.
 
 | prop                | type     | required | description                                                         |
 |---------------------|----------|----------|---------------------------------------------------------------------|
-| **to**              | `string` | **yes**  | Name of the route used as link target                               |
+| **to**              | `string`, `object` | **yes**  | Name of the route used as link target                     |
 | **params**          | `object` |          | Object containing key/values to generate parameterized URLs         |
 
 NamedLink throw the following errors:
@@ -304,6 +304,17 @@ NamedLink throw the following errors:
 - `Undefined route "$name"`: When the `to` prop does not match any route given to the `NamedRouter`.
 - `Route "$name" does not have a path`: When the `to` prop points to an existing route which does not have a path (like wrapper routes).
 - `Missing value for required param "$paramKey"`: When the `params` prop is missing a key/value pair to generate URL.
+
+The `to` prop can also take a location object to provide a state. This is useful when redirecting user to login and
+keeping somewhere the url from which user was redirected. The location object has the following signature:
+
+| location property   | type     | required | description                                                         |
+|---------------------|----------|----------|---------------------------------------------------------------------|
+| **name**            | `string` | **yes**  | Name of the route used as link target                               |
+| **state**           | `object` |          | Object containing key/values to keep in location state              |
+| **search**          | `string` |          | URL query string (eg `?param=1234`)                                 |
+| **hash**            | `string` |          | URL anchor (eg `#section42`)                                        |
+
 
 ### `NamedRedirect`
 

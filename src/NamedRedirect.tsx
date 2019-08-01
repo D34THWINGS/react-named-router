@@ -1,11 +1,13 @@
 import React from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { Location } from 'history';
 import { Redirect, RedirectProps } from 'react-router-dom';
 import invariant from 'tiny-invariant';
 
 import { useNamedRouting } from './hooks';
 
 export interface NamedRedirectProps<TParams = object> extends RedirectProps {
-  to: string;
+  to: string | (Omit<Partial<Location>, 'pathname'> & { name: string });
   params?: TParams;
 }
 
@@ -21,7 +23,13 @@ export const NamedRedirect: React.FC<NamedRedirectProps> = ({
   const { getPath } = context;
 
   return (
-    <Redirect {...otherProps} to={getPath(to, params)} />
+    <Redirect
+      {...otherProps}
+      to={typeof to === 'string' ? getPath(to, params) : {
+        ...to,
+        pathname: getPath(to.name, params),
+      }}
+    />
   );
 };
 
