@@ -64,7 +64,7 @@ export const mapRoutes = (
       parents,
       ...(route.path ? {
         regex: new RegExp(
-          `^${(basename + route.path).replace(/\/:\w+\?/g, '/?([\\w_-]*)').replace(/:\w+/g, '([\\w_-]+)')}\\/?$`,
+          `^${(basename + route.path).replace(/\/:\w+\?/g, '/?([^\\/]*)').replace(/:\w+/g, '([^\\/]+)')}\\/?$`,
         ),
       } : {}),
     });
