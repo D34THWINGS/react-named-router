@@ -12,4 +12,4 @@ export { withNamedRouting, WithNamedRoutingProps } from './withNamedRouting';
 
 export { NamedRouter, NamedRouterProps, NamedRouteConfig } from './NamedRouter';
 
-export { useNamedRouting, useLocation, useParams } from './hooks';
+export { useNamedRouting, useLocation, useParams, useCurrentRoute } from './hooks';
