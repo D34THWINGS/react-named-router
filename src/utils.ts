@@ -101,6 +101,10 @@ export class RoutingContext {
     return match ? match.params : defaultParams;
   }
 
+  public get currentRoute() {
+    return this.match(this.location.pathname);
+  }
+
   public constructor(
     routesMap: Map<string, ExtendedRouteConfig>,
     routerContext: RouteChildrenPropsWithLocation,

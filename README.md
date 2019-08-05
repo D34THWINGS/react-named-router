@@ -378,6 +378,10 @@ Current location used within the router, can be useful to get `location.pathname
 
 Current matching route params. Can be used to get url params from anywhere within the application.
 
+##### `currrentRoute: ExtendedRouteConfig | null`
+
+Current matching route (can match only exact paths).
+
 ##### `match(pathname: string)`
 
 This function returns the route matching exactly the given pathname or null if no match found. The returned route object

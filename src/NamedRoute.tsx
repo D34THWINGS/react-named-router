@@ -1,16 +1,19 @@
 import React from 'react';
-import { Route, RouteComponentProps, RouteProps } from 'react-router-dom';
+import { RouteChildrenProps } from 'react-router';
+import { Route, RouteProps } from 'react-router-dom';
 import invariant from 'tiny-invariant';
 
 import { NamedRouteConfig } from './NamedRouter';
 import { useNamedRouting } from './hooks';
 
-export interface NamedRouteProps<TParams = object> extends Omit<RouteProps, 'path'> {
+interface AnyOtherProp { [key: string]: any }
+
+export interface NamedRouteProps extends Omit<RouteProps, 'path'>, AnyOtherProp {
   name: string;
   children?: React.ReactNode;
 }
 
-export interface NamedRouteComponentProps<P, C, S> extends RouteComponentProps<P, C, S> {
+export interface NamedRouteComponentProps extends RouteChildrenProps {
   route: NamedRouteConfig;
 }
 
