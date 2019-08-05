@@ -64,7 +64,9 @@ export const mapRoutes = (
       parents,
       ...(route.path ? {
         regex: new RegExp(
-          `^${(basename + route.path).replace(/\/:\w+\?/g, '/?([^\\/]*)').replace(/:\w+/g, '([^\\/]+)')}\\/?$`,
+          `^${(basename + route.path)
+            .replace(/\/:\w+\?/g, '/?([^\\/]*)')
+            .replace(/:\w+/g, '([^\\/]+)')}\\/?${route.exact ? '$' : ''}`,
         ),
       } : {}),
     });
@@ -113,8 +115,8 @@ export class RoutingContext {
     this.routerContext = routerContext;
   }
 
-  public match = (pathname: string) => Array.from(this.routesMap.values())
-    .find(route => !!route.regex && route.regex.test(pathname)) || null;
+  public match = (pathname: string, matchAll?: boolean) => Array.from(this.routesMap.values())
+    .find(route => (matchAll || (!matchAll && route.exact)) && !!route.regex && route.regex.test(pathname)) || null;
 
   public getPath = <TParams>(name: string, params?: TParams) => buildRoutePath(this.routesMap, name, params);
 

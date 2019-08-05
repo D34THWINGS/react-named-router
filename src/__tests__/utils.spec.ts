@@ -16,6 +16,7 @@ describe('Utils', () => {
       const childRoute = {
         name: 'child',
         path: '/parent/child',
+        exact: true,
       };
       const routes: NamedRouteConfig[] = [
         {
@@ -32,7 +33,7 @@ describe('Utils', () => {
       expect(map.get('parent')).toEqual({
         ...routes[0],
         parents: [],
-        regex: /^\/parent\/?$/,
+        regex: /^\/parent\/?/,
       });
       expect(map.get('child')).toEqual({
         ...childRoute,
@@ -85,11 +86,19 @@ describe('Utils', () => {
   });
 
   describe('RoutingContext', () => {
-    const routesMap = new Map<string, ExtendedRouteConfig>([['test', {
-      path: '/test',
-      regex: /^\/test$/,
-      parents: [],
-    }]]);
+    const routesMap = new Map<string, ExtendedRouteConfig>([
+      ['test', {
+        path: '/test',
+        regex: /^\/test$/,
+        exact: true,
+        parents: [],
+      }],
+      ['test2', {
+        path: '/test2',
+        regex: /^\/test2/,
+        parents: [],
+      }],
+    ]);
 
     describe('#push()', () => {
       it('should call push on history with matching route', () => {
@@ -165,6 +174,17 @@ describe('Utils', () => {
 
         // Then
         expect(match).toEqual(routesMap.get('test'));
+      });
+
+      it('should match all routes when matchAll is true', () => {
+        // Given
+        const baseRoutingContext = new RoutingContext(routesMap, {} as any);
+
+        // When
+        const match = baseRoutingContext.match('/test2/1234', true);
+
+        // Then
+        expect(match).toEqual(routesMap.get('test2'));
       });
     });
   });

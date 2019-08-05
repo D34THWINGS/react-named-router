@@ -382,13 +382,16 @@ Current matching route params. Can be used to get url params from anywhere withi
 
 Current matching route (can match only exact paths).
 
-##### `match(pathname: string)`
+##### `match(pathname: string, matchAll?: boolean)`
 
-This function returns the route matching exactly the given pathname or null if no match found. The returned route object
-is the object from your route configuration plus two additional properties:
+This function returns the first route matching exactly the given pathname or null if no match found. Also matches only
+route with exact property. The returned route object is the object from your route configuration plus two additional
+properties:
 
 - `regex`: a Regular expression to test pathname against for matching.
 - `parents`: list of parent routes (array of route names).
+
+The `matchAll` param allows you to match index routes (non exact routes).
 
 ##### `getPath(name: string, params?: object)`
 

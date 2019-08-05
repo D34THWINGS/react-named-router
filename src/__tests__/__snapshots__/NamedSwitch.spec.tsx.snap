@@ -42,7 +42,7 @@ exports[`NamedSwitch should render only first matching route 1`] = `
         name="bar"
         parents={Array []}
         path="/foo/bar"
-        regex={/\\^\\\\/foo\\\\/bar\\\\/\\?\\$/}
+        regex={/\\^\\\\/foo\\\\/bar\\\\/\\?/}
       />
     </NamedRoute>
   </Route>
@@ -120,7 +120,7 @@ exports[`NamedSwitch should spread matching route properties 1`] = `
         name="bar"
         parents={Array []}
         path="/foo/bar"
-        regex={/\\^\\\\/foo\\\\/bar\\\\/\\?\\$/}
+        regex={/\\^\\\\/foo\\\\/bar\\\\/\\?/}
       >
         <BarComponent
           history={

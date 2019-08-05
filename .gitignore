@@ -3,3 +3,4 @@ lib/
 es6/
 .eslintcache
 reports/
+junit.xml
