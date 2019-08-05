@@ -358,7 +358,11 @@ React hook that enables you to quickly retrieve current matching route params (s
 
 ### `useLocation()`
 
-Another React hook to retrieve current location. Contains pathname, state, etc.
+A React hook to retrieve current location. Contains pathname, state, etc.
+
+### `useCurrentRoute()`
+
+This React hook will let you use the currently exact matching route.
 
 ### Context API
 

@@ -9,3 +9,8 @@ export const useLocation = <TState = any>(): Location<TState> => useNamedRouting
 
 export const useParams = <TParams extends { [key: string]: string } = {}>(): TParams => (
   useNamedRouting().params as TParams);
+
+export const useCurrentRoute = () => {
+  const { match, location } = useNamedRouting();
+  return match(location.pathname);
+};
