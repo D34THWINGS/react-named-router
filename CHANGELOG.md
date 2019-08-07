@@ -1,11 +1,15 @@
 # Changelog
 
-<a name="next"></a>
-## next
+<a name="0.6.1"></a>
+## 0.6.1 (2019-08-07)
 
 ### Added
 
 - ✨ Allow passing state to &#x60;push&#x60; and &#x60;replace&#x60; methods [[11e3981](https://github.com/D34THWINGS/react-named-router/commit/11e39810ce83f0ccc24c02a649e3154c6e59ad31)]
+
+### Miscellaneous
+
+- 📝 Rectify empty CHANGELOG [[b938273](https://github.com/D34THWINGS/react-named-router/commit/b9382735c73c38dfdfc66e9db98404778b24049b)]
 
 
 <a name="0.6.0"></a>
