@@ -106,12 +106,13 @@ describe('Utils', () => {
         const history = createMemoryHistory();
         const routingContext = new RoutingContext(routesMap, { history, location: {} as any });
         const historyPushMock = jest.spyOn(history, 'push');
+        const state = { key: 'value' };
 
         // When
-        routingContext.push('test');
+        routingContext.push('test', {}, state);
 
         // Then
-        expect(historyPushMock).toHaveBeenCalledWith('/test');
+        expect(historyPushMock).toHaveBeenCalledWith('/test', state);
       });
     });
 
@@ -121,12 +122,13 @@ describe('Utils', () => {
         const history = createMemoryHistory();
         const routingContext = new RoutingContext(routesMap, { history, location: {} as any });
         const historyReplaceMock = jest.spyOn(history, 'replace');
+        const state = { key: 'value' };
 
         // When
-        routingContext.replace('test');
+        routingContext.replace('test', {}, state);
 
         // Then
-        expect(historyReplaceMock).toHaveBeenCalledWith('/test');
+        expect(historyReplaceMock).toHaveBeenCalledWith('/test', state);
       });
     });
 

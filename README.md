@@ -402,17 +402,19 @@ for parameterized URLs generation. Throws also an error if required parameter is
 
 Retrieve route object for given route name. Throws an error if route is not found.
 
-##### `push(name: string, params?: object)`
+##### `push(name: string, params?: object, state?: object)`
 
 Issue a push into the history API (`pushState` for HTML5 History) using the given route name and params. Throws the
-same errors as `getPath`.
+same errors as `getPath`. `params` is used to generate path if route has arguments. `state` is a custom object that will
+be stored within `location.state`.
 
 ⚠️ This method will throw an error if used without history being available (typically on server side).
 
-##### `replace(name: string, params?: object)`
+##### `replace(name: string, params?: object, state?: object)`
 
 Replaces current location, using history API (`replaceState` for HTML5 History) with the given route name and params.
-Throws the same errors as `getPath`.
+Throws the same errors as `getPath`.`params` is used to generate path if route has arguments. `state` is a custom object
+that will be stored within `location.state`.
 
 ⚠️ This method will throw an error if used without history being available (typically on server side).
 

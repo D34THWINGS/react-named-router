@@ -130,11 +130,11 @@ export class RoutingContext {
     return route;
   };
 
-  public push = <TParams>(name: string, params?: TParams) => this.history
-    .push(buildRoutePath(this.routesMap, name, params));
+  public push = <TParams, TState>(name: string, params?: TParams, state?: TState) => this.history
+    .push(buildRoutePath(this.routesMap, name, params), state);
 
-  public replace = <TParams>(name: string, params?: TParams) => this.history
-    .replace(buildRoutePath(this.routesMap, name, params));
+  public replace = <TParams, TState>(name: string, params?: TParams, state?: TState) => this.history
+    .replace(buildRoutePath(this.routesMap, name, params), state);
 }
 
 export type RoutingContextArg = Omit<Partial<RouteChildrenProps<any, any>>, 'location'> & {
