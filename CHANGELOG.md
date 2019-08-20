@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="0.7.0"></a>
+## 0.7.0 (2019-08-20)
+
+### Miscellaneous
+
+- 💥 Allow usage of a location object with push and replace [[3aac47f](https://github.com/D34THWINGS/react-named-router/commit/3aac47f4c89fdc419daf1ac6751676f5e9be2c0e)]
+
+
 <a name="0.6.1"></a>
 ## 0.6.1 (2019-08-07)
 
