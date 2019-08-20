@@ -53,7 +53,8 @@ describe('Utils', () => {
     it('should warn when registering a route twice', () => {
       // Given
       const routes = [{ name: 'duplicate', path: '/route1' }, { name: 'duplicate', path: '/route2' }];
-      const consoleMock = jest.spyOn(console, 'warn').mockImplementation(() => {});
+      const consoleMock = jest.spyOn(console, 'warn').mockImplementation(() => {
+      });
 
       // When
       mapRoutes(routes);
@@ -106,13 +107,26 @@ describe('Utils', () => {
         const history = createMemoryHistory();
         const routingContext = new RoutingContext(routesMap, { history, location: {} as any });
         const historyPushMock = jest.spyOn(history, 'push');
+
+        // When
+        routingContext.push('test', {});
+
+        // Then
+        expect(historyPushMock).toHaveBeenCalledWith({ pathname: '/test' });
+      });
+
+      it('should call push on history with matching route and custom state', () => {
+        // Given
+        const history = createMemoryHistory();
+        const routingContext = new RoutingContext(routesMap, { history, location: {} as any });
+        const historyPushMock = jest.spyOn(history, 'push');
         const state = { key: 'value' };
 
         // When
-        routingContext.push('test', {}, state);
+        routingContext.push({ name: 'test', state });
 
         // Then
-        expect(historyPushMock).toHaveBeenCalledWith('/test', state);
+        expect(historyPushMock).toHaveBeenCalledWith({ pathname: '/test', state });
       });
     });
 
@@ -122,13 +136,26 @@ describe('Utils', () => {
         const history = createMemoryHistory();
         const routingContext = new RoutingContext(routesMap, { history, location: {} as any });
         const historyReplaceMock = jest.spyOn(history, 'replace');
+
+        // When
+        routingContext.replace('test', {});
+
+        // Then
+        expect(historyReplaceMock).toHaveBeenCalledWith({ pathname: '/test' });
+      });
+
+      it('should call replace on history with matching route and custom state', () => {
+        // Given
+        const history = createMemoryHistory();
+        const routingContext = new RoutingContext(routesMap, { history, location: {} as any });
+        const historyPushMock = jest.spyOn(history, 'replace');
         const state = { key: 'value' };
 
         // When
-        routingContext.replace('test', {}, state);
+        routingContext.replace({ name: 'test', state });
 
         // Then
-        expect(historyReplaceMock).toHaveBeenCalledWith('/test', state);
+        expect(historyPushMock).toHaveBeenCalledWith({ pathname: '/test', state });
       });
     });
 

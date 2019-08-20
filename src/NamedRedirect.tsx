@@ -1,13 +1,12 @@
 import React from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { Location } from 'history';
 import { Redirect, RedirectProps } from 'react-router-dom';
 import invariant from 'tiny-invariant';
 
 import { useNamedRouting } from './hooks';
+import { NamedLocation } from './utils';
 
 export interface NamedRedirectProps<TParams = object> extends RedirectProps {
-  to: string | (Omit<Partial<Location>, 'pathname'> & { name: string });
+  to: string | NamedLocation;
   params?: TParams;
 }
 

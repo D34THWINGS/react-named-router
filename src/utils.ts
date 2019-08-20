@@ -1,4 +1,6 @@
 import { matchPath, RouteChildrenProps } from 'react-router';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { LocationDescriptorObject } from 'history';
 import { NamedRouteConfig } from './NamedRouter';
 
 export interface ExtendedRouteConfig extends NamedRouteConfig {
@@ -75,6 +77,12 @@ export const mapRoutes = (
   return map;
 };
 
+const omitName = ({ name, ...rest }: NamedLocation) => rest;
+
+export type NamedLocation = Omit<LocationDescriptorObject, 'pathname'> & {
+  name: string;
+}
+
 const defaultParams = {};
 
 export class RoutingContext {
@@ -130,11 +138,15 @@ export class RoutingContext {
     return route;
   };
 
-  public push = <TParams, TState>(name: string, params?: TParams, state?: TState) => this.history
-    .push(buildRoutePath(this.routesMap, name, params), state);
+  public push = (location: string | NamedLocation, params?: { [key: string]: string }) => this.history.push({
+    pathname: buildRoutePath(this.routesMap, typeof location === 'string' ? location : location.name, params),
+    ...(typeof location === 'string' ? undefined : omitName(location)),
+  });
 
-  public replace = <TParams, TState>(name: string, params?: TParams, state?: TState) => this.history
-    .replace(buildRoutePath(this.routesMap, name, params), state);
+  public replace = (location: string | NamedLocation, params?: { [key: string]: string }) => this.history.replace({
+    pathname: buildRoutePath(this.routesMap, typeof location === 'string' ? location : location.name, params),
+    ...(typeof location === 'string' ? undefined : omitName(location)),
+  });
 }
 
 export type RoutingContextArg = Omit<Partial<RouteChildrenProps<any, any>>, 'location'> & {

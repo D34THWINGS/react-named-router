@@ -1,13 +1,12 @@
 import React from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { Location } from 'history';
 import { Link, LinkProps } from 'react-router-dom';
 import invariant from 'tiny-invariant';
 
 import { useNamedRouting } from './hooks';
+import { NamedLocation } from './utils';
 
 export interface NamedLinkProps<TParams = object> extends LinkProps {
-  to: string | (Omit<Partial<Location>, 'pathname'> & { name: string });
+  to: string | NamedLocation;
   params?: TParams;
   children?: React.ReactNode;
 }
