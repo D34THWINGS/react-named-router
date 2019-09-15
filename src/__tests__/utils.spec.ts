@@ -249,6 +249,17 @@ describe('Utils', () => {
       expect(path).toEqual('/test');
     });
 
+    it('should not remove trailing slash for root /', () => {
+      // Given
+      const map = new Map<string, ExtendedRouteConfig>([['test', { path: '/', regex: /^\/$/, parents: [] }]]);
+
+      // When
+      const path = buildRoutePath(map, 'test');
+
+      // Then
+      expect(path).toEqual('/');
+    });
+
     it('should throw if route does not exist', () => {
       expect(() => buildRoutePath(new Map(), 'invalid')).toThrow(new Error('Undefined route "invalid"'));
     });

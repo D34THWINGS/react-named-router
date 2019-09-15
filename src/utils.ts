@@ -34,7 +34,8 @@ export const buildRoutePath = (map: Map<string, ExtendedRouteConfig>, name: stri
       }
       return paramValue || '';
     })
-    .replace(/\/$/, ''));
+    // Remove trailing slash only if URL is not just a /
+    .replace(/^(.+)\/$/, '$1'));
 
 export const mapRoutes = (
   routes: NamedRouteConfig[],
