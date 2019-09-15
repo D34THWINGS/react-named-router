@@ -74,6 +74,28 @@ describe('Utils', () => {
       // Then
       expect(map.size).toEqual(0);
     });
+
+    it('should map routes with name aliases', () => {
+      // Given
+      const routes: NamedRouteConfig[] = [
+        {
+          name: ['test', 'alias'],
+          path: '/test',
+        },
+      ];
+
+      // When
+      const map = mapRoutes(routes);
+
+      // Then
+      const expectedRoute = {
+        ...routes[0],
+        parents: [],
+        regex: /^\/test\/?/,
+      };
+      expect(map.get('test')).toEqual(expectedRoute);
+      expect(map.get('alias')).toEqual(expectedRoute);
+    });
   });
 
   describe('#buildRoutingContext()', () => {

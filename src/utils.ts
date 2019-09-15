@@ -45,7 +45,12 @@ export const mapRoutes = (
 ) => {
   routes.forEach((route) => {
     if (route.routes) {
-      mapRoutes(route.routes, basename, route.name ? [...parents, route.name] : parents, map);
+      mapRoutes(
+        route.routes,
+        basename,
+        route.name ? [...parents, Array.isArray(route.name) ? route.name[0] : route.name] : parents,
+        map,
+      );
     }
 
     if (!route.name && route.path) {
@@ -56,13 +61,15 @@ export const mapRoutes = (
       return;
     }
 
-    const existingRoute = map.get(route.name);
+    const existingRoute = Array.isArray(route.name)
+      ? map.get(route.name.find(name => map.get(name)) || '')
+      : map.get(route.name);
     if (process.env.NODE_ENV !== 'production' && existingRoute) {
       // eslint-disable-next-line no-console
       console.warn(`Duplicate definition for route ${route.name}:\n- ${existingRoute.path}\n- ${route.path}`);
     }
 
-    map.set(route.name, {
+    (Array.isArray(route.name) ? route.name : [route.name]).forEach(name => map.set(name, {
       ...route,
       parents,
       ...(route.path ? {
@@ -72,7 +79,7 @@ export const mapRoutes = (
             .replace(/:\w+/g, '([^\\/]+)')}\\/?${route.exact ? '$' : ''}`,
         ),
       } : {}),
-    });
+    }));
   });
 
   return map;

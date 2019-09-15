@@ -5,7 +5,7 @@ import { Route } from 'react-router';
 import { buildRoutingContext, RoutingContext } from './utils';
 
 export type NamedRouteConfig<T = { [key: string]: any }> = T & Omit<RouteProps, 'children'> & {
-  name?: string;
+  name?: string | string[];
   path?: string;
   routes?: NamedRouteConfig<T>[];
 }

@@ -289,6 +289,9 @@ level component or within your initial call of `ReactDOM.render`.
 | **routerProps**     | `any`                      |          | Props passed the the router component                                |
 | **children**        | `React.ReactNode`          |          | Children elements to render inside router.                           |
 
+Route name can be an array to have aliases for a same route. Tough only the first name will come up in routing
+resolution (like when using `match` or when you use `NamedRoute`).
+
 ### `NamedLink`
 
 Based on the React Router [Link](https://reacttraining.com/react-router/web/api/Link) component. It uses all the same
