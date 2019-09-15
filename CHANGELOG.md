@@ -1,5 +1,21 @@
 # Changelog
 
+<a name="0.7.1"></a>
+## 0.7.1 (2019-09-15)
+
+### Added
+
+- ✨ Add route name alias feature [[3955687](https://github.com/D34THWINGS/react-named-router/commit/395568715c7deb3325b1978123349ca7c53051c3)]
+
+### Changed
+
+- ⬆️ Upgrading deps to last version [[36bb31e](https://github.com/D34THWINGS/react-named-router/commit/36bb31e5f9a755b31870e9bd985ca0291d4550bc)]
+
+### Fixed
+
+- 🐛 Fix bug when trying to push to a route with / as path [[6bd4f09](https://github.com/D34THWINGS/react-named-router/commit/6bd4f09273345095e79902b1e2378a2ecaa15d41)]
+
+
 <a name="0.7.0"></a>
 ## 0.7.0 (2019-08-20)
 
