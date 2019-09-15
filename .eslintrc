@@ -10,6 +10,7 @@
     "max-len": ["error", 120],
     "react/jsx-filename-extension": ["error", { "extensions": [".jsx", ".tsx"] }],
     "react/destructuring-assignment": "off",
+    "react/jsx-props-no-spreading": "off",
     "object-curly-newline": "off",
     "@typescript-eslint/indent": ["error", 2],
     "@typescript-eslint/no-explicit-any": "off",

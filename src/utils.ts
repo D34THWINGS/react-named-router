@@ -39,7 +39,7 @@ export const buildRoutePath = (map: Map<string, ExtendedRouteConfig>, name: stri
 
 export const mapRoutes = (
   routes: NamedRouteConfig[],
-  basename: string = '',
+  basename = '',
   parents: string[] = [],
   map: Map<string, ExtendedRouteConfig> = new Map(),
 ) => {
@@ -62,14 +62,14 @@ export const mapRoutes = (
     }
 
     const existingRoute = Array.isArray(route.name)
-      ? map.get(route.name.find(name => map.get(name)) || '')
+      ? map.get(route.name.find((name) => map.get(name)) || '')
       : map.get(route.name);
     if (process.env.NODE_ENV !== 'production' && existingRoute) {
       // eslint-disable-next-line no-console
       console.warn(`Duplicate definition for route ${route.name}:\n- ${existingRoute.path}\n- ${route.path}`);
     }
 
-    (Array.isArray(route.name) ? route.name : [route.name]).forEach(name => map.set(name, {
+    (Array.isArray(route.name) ? route.name : [route.name]).forEach((name) => map.set(name, {
       ...route,
       parents,
       ...(route.path ? {
@@ -132,7 +132,7 @@ export class RoutingContext {
   }
 
   public match = (pathname: string, matchAll?: boolean) => Array.from(this.routesMap.values())
-    .find(route => (matchAll || (!matchAll && route.exact)) && !!route.regex && route.regex.test(pathname)) || null;
+    .find((route) => (matchAll || (!matchAll && route.exact)) && !!route.regex && route.regex.test(pathname)) || null;
 
   public getPath = <TParams>(name: string, params?: TParams) => buildRoutePath(this.routesMap, name, params);
 
