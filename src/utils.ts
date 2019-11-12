@@ -110,13 +110,22 @@ export class RoutingContext {
     return this.routerContext.history;
   }
 
-  public get params(): { [key: string]: string } {
-    const route = this.match(this.location.pathname);
+  private extractParams(route: ExtendedRouteConfig | null) {
     if (!route || !route.path) {
       return defaultParams;
     }
     const match = matchPath(this.location.pathname, route);
     return match ? match.params : defaultParams;
+  }
+
+  public get params(): { [key: string]: string } {
+    const route = this.match(this.location.pathname, true);
+    return this.extractParams(route);
+  }
+
+  public get exactParams(): { [key: string]: string } {
+    const route = this.match(this.location.pathname);
+    return this.extractParams(route);
   }
 
   public get currentRoute() {

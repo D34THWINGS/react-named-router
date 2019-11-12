@@ -377,9 +377,13 @@ This object is returned when using `withNamedRouting` or `useNamedRouting`.
 
 Current location used within the router, can be useful to get `location.pathname` or `location.state`.
 
-##### `params: any`
+##### `params: { [key: string]: string }`
 
 Current matching route params. Can be used to get url params from anywhere within the application.
+
+##### `exactParams: { [key: string]: string }`
+
+Same as `params` but only for `exact` routes.
 
 ##### `currrentRoute: ExtendedRouteConfig | null`
 
