@@ -1,5 +1,17 @@
 # Changelog
 
+<a name="0.7.2"></a>
+## 0.7.2 (2019-12-20)
+
+### Fixed
+
+- 🐛 Fix not working withNamedRouting HOC [[40305fc](https://github.com/D34THWINGS/react-named-router/commit/40305fcb479c8ec60fc571c9592a991393a964f5)]
+
+### Miscellaneous
+
+- 💥 Match params from all routes and add exactParams for legacy behaviour [[e98a392](https://github.com/D34THWINGS/react-named-router/commit/e98a3927b5ccb1754d6691446c1146ebf09aa575)]
+
+
 <a name="0.7.1"></a>
 ## 0.7.1 (2019-09-15)
 
