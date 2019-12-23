@@ -19,6 +19,7 @@ can't use it (yet) on Native environment.
 * [With react-router-config](#with-react-router-config)
 * [I18n (translated route paths)](#i18n-translated-route-paths)
 * [SSR](#ssr)
+* [TypeScript](#typescript)
 * [API](#api)
   * [NamedRouter](#namedrouter)
   * [NamedLink](#namedlink)
@@ -253,7 +254,7 @@ providing the `routerComponent` prop:
 
 ```jsx harmony
 const handleGet = (req, res) => {
-  res(ReactDOMServer.renderToString((
+  res.send(ReactDOMServer.renderToString((
     <NamedRouter routerComponent={StaticRouter} routerProps={{ location: req.url }} routes={routes}>
       {/* App content */}
     </NamedRouter>
@@ -261,17 +262,31 @@ const handleGet = (req, res) => {
 }
 ```
 
-You can also build a meta tags/page title system based on named routes:
+You can also use the `buildRoutingContext` to determine if you should return 404 not found:
 
 ```jsx harmony
-const meta = { home: { title: 'My awesome page' } };
-
 const routingContext = buildRoutingContext(routes);
 
 const handleGet = (req, res) => {
-  const { name } = routingContext.match(req.url);
-  const { title } = meta[name].title;
-  // Render app with title...
+  const route = routingContext.match(req.url);
+  if (!route) {
+    res.status(404).send('NotFound')
+  } else {
+    res.send('Hello world!')
+  }
+}
+```
+
+## TypeScript
+
+`react-named-router` provides first class typescript type definitions without installing anything else. If you want to
+have a custom route configuration object you can extend the `CustomNamedRouteConfig` with interface override:
+
+```typescript
+declare module 'react-named-router' {
+  interface CustomNamedRouteConfig {
+    title: string
+  }
 }
 ```
 
@@ -347,13 +362,17 @@ Based on the React Router [Switch](https://reacttraining.com/react-router/web/ap
 |---------------------|------------|----------|----------------------------------------------------------------------|
 | **location**        | `Location` |          | Location to be used for route matching, defaults to context location |
 
-### `buildRoutingContext(routes: NamedRouteConfig[], routerContext: RoutingContextArg, basename?: string)`
+### `buildRoutingContext(routes: NamedRouteConfig[], routerContext?: RoutingContextArg, basename?: string)`
 
 Utility function that can be used to build the context on server side rendering to get the name of the current route.
 This is useful when you need to generate meta tags, page title or anything else depending on which route is matching.
+Can also be used anywhere to convert route names to pathname and vice-versa.
 
 ⚠️ If you use a `basename` on frontend, be sure to pass it to `buildRoutingContext` otherwise `context.match` won't
 work properly.
+
+The `routingContext` argument can be part or the whole context given by React Router or a custom one. It will be used
+for location and history properties and also to be able to calculate params.
 
 ### `useParams()`
 

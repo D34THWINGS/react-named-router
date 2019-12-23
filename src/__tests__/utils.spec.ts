@@ -1,10 +1,10 @@
 import { createMemoryHistory } from 'history';
 
-import { NamedRouteConfig } from '../NamedRouter';
 import {
   mapRoutes,
   buildRoutingContext,
   buildRoutePath,
+  NamedRouteConfig,
   ExtendedRouteConfig,
   RoutingContext,
 } from '../utils';

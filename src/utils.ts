@@ -1,15 +1,24 @@
 import { matchPath, RouteChildrenProps } from 'react-router';
+import { RouteProps } from 'react-router-dom';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { LocationDescriptorObject } from 'history';
-import { NamedRouteConfig } from './NamedRouter';
 
-export interface ExtendedRouteConfig extends NamedRouteConfig {
-  parents: string[];
-  regex?: RegExp;
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface CustomNamedRouteConfig {
+  /**
+   * Override this interface with custom fields if you want to store any additional information on route
+   */
 }
 
-type RouteChildrenPropsWithLocation = Omit<Partial<RouteChildrenProps<any, any>>, 'location'> & {
-  location: RouteChildrenProps<any, any>['location'];
+export type NamedRouteConfig = CustomNamedRouteConfig & Omit<RouteProps, 'children'> & {
+  name?: string | string[];
+  path?: string;
+  routes?: NamedRouteConfig[];
+}
+
+export type ExtendedRouteConfig = NamedRouteConfig & {
+  parents: string[];
+  regex?: RegExp;
 }
 
 const buildRawPath = (map: Map<string, ExtendedRouteConfig>, name: string) => {
@@ -96,48 +105,55 @@ const defaultParams = {};
 export class RoutingContext {
   protected readonly routesMap: Map<string, ExtendedRouteConfig>;
 
-  protected routerContext: RouteChildrenPropsWithLocation;
+  protected readonly routerContext: Partial<RouteChildrenProps>;
+
+  public readonly currentRoute: ExtendedRouteConfig | null;
+
+  public readonly params: { [key: string]: string };
+
+  public readonly exactParams: { [key: string]: string };
 
   public get location() {
+    if (!this.routerContext.location) {
+      throw new Error('Location was not provided to router context');
+    }
+
     return this.routerContext.location;
   }
 
   public get history() {
     if (!this.routerContext.history) {
-      throw new Error('History API cannot be used on server side');
+      throw new Error('History was not provided to router context');
     }
 
     return this.routerContext.history;
   }
 
-  private extractParams(route: ExtendedRouteConfig | null) {
+  private static extractParams(route: ExtendedRouteConfig | null, pathname: string) {
     if (!route || !route.path) {
       return defaultParams;
     }
-    const match = matchPath(this.location.pathname, route);
+    const match = matchPath(pathname, route);
     return match ? match.params : defaultParams;
-  }
-
-  public get params(): { [key: string]: string } {
-    const route = this.match(this.location.pathname, true);
-    return this.extractParams(route);
-  }
-
-  public get exactParams(): { [key: string]: string } {
-    const route = this.match(this.location.pathname);
-    return this.extractParams(route);
-  }
-
-  public get currentRoute() {
-    return this.match(this.location.pathname);
   }
 
   public constructor(
     routesMap: Map<string, ExtendedRouteConfig>,
-    routerContext: RouteChildrenPropsWithLocation,
+    routerContext: Partial<RouteChildrenProps> = {},
   ) {
     this.routesMap = routesMap;
     this.routerContext = routerContext;
+
+    this.currentRoute = routerContext.location ? this.match(routerContext.location.pathname) : null;
+    this.exactParams = this.currentRoute
+      ? RoutingContext.extractParams(this.currentRoute, this.location.pathname)
+      : defaultParams;
+    const matchAllRoute = routerContext.location
+      ? this.match(routerContext.location.pathname, true)
+      : null;
+    this.params = this.currentRoute
+      ? RoutingContext.extractParams(matchAllRoute, this.location.pathname)
+      : defaultParams;
   }
 
   public match = (pathname: string, matchAll?: boolean) => Array.from(this.routesMap.values())
@@ -172,13 +188,13 @@ export type RoutingContextArg = Omit<Partial<RouteChildrenProps<any, any>>, 'loc
 
 export const buildRoutingContext = (
   routes: NamedRouteConfig[],
-  routerContext: RoutingContextArg,
+  routerContext?: RoutingContextArg,
   basename?: string,
 ): RoutingContext => {
   const map = mapRoutes(routes, basename);
 
   let finalContext = routerContext;
-  if (typeof routerContext.location === 'string') {
+  if (routerContext && typeof routerContext.location === 'string') {
     const [pathname, search] = routerContext.location.split('?');
     finalContext = {
       ...routerContext,
@@ -191,5 +207,5 @@ export const buildRoutingContext = (
     };
   }
 
-  return new RoutingContext(map, finalContext as RouteChildrenPropsWithLocation);
+  return new RoutingContext(map, finalContext);
 };

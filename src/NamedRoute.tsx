@@ -3,7 +3,7 @@ import { RouteChildrenProps } from 'react-router';
 import { Route, RouteProps } from 'react-router-dom';
 import invariant from 'tiny-invariant';
 
-import { NamedRouteConfig } from './NamedRouter';
+import { NamedRouteConfig } from './utils';
 import { useNamedRouting } from './hooks';
 
 interface AnyOtherProp { [key: string]: any }

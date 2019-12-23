@@ -1,14 +1,8 @@
 import React, { createContext } from 'react';
-import { BrowserRouter, BrowserRouterProps, RouteProps } from 'react-router-dom';
+import { BrowserRouter, BrowserRouterProps } from 'react-router-dom';
 import { Route } from 'react-router';
 
-import { buildRoutingContext, RoutingContext } from './utils';
-
-export type NamedRouteConfig<T = { [key: string]: any }> = T & Omit<RouteProps, 'children'> & {
-  name?: string | string[];
-  path?: string;
-  routes?: NamedRouteConfig<T>[];
-}
+import { buildRoutingContext, NamedRouteConfig, RoutingContext } from './utils';
 
 export type NamedRouterProps<TRouterProps = BrowserRouterProps> = TRouterProps & {
   routes: NamedRouteConfig[];
