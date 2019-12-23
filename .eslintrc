@@ -8,6 +8,7 @@
   },
   "rules": {
     "max-len": ["error", 120],
+    "indent": "off",
     "react/jsx-filename-extension": ["error", { "extensions": [".jsx", ".tsx"] }],
     "react/destructuring-assignment": "off",
     "react/jsx-props-no-spreading": "off",

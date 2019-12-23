@@ -1,13 +1,13 @@
-import React, { createContext } from 'react';
-import { BrowserRouter, BrowserRouterProps } from 'react-router-dom';
+import React, { ComponentProps, createContext, JSXElementConstructor } from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import { Route } from 'react-router';
 
 import { buildRoutingContext, NamedRouteConfig, RoutingContext } from './utils';
 
-export type NamedRouterProps<TRouterProps = BrowserRouterProps> = TRouterProps & {
+export type NamedRouterProps<TRouter extends keyof JSX.IntrinsicElements | JSXElementConstructor<any>> = {
   routes: NamedRouteConfig[];
-  routerComponent?: React.ComponentType<TRouterProps>;
-  routerProps?: TRouterProps;
+  routerComponent?: TRouter;
+  routerProps?: ComponentProps<TRouter>;
   children?: React.ReactNode;
 }
 
@@ -16,13 +16,13 @@ export const namedRouterContext = createContext<RoutingContext>(buildRoutingCont
   { location: '/' },
 ));
 
-export const NamedRouter: React.FC<NamedRouterProps> = ({
-  routerComponent: RouterComponent = BrowserRouter,
+export const NamedRouter = <TRouterProps extends (keyof JSX.IntrinsicElements | JSXElementConstructor<any>)>({
+  routerComponent: RouterComponent = (BrowserRouter as any),
   routerProps,
   routes,
   children,
-}) => (
-  <RouterComponent {...routerProps}>
+}: NamedRouterProps<TRouterProps>) => (
+  <RouterComponent {...(routerProps as any)}>
     <Route>
       {(routerContext) => (
         <namedRouterContext.Provider value={buildRoutingContext(routes, routerContext)}>
