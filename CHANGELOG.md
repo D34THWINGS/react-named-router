@@ -1,5 +1,17 @@
 # Changelog
 
+<a name="0.8.0"></a>
+## 0.8.0 (2019-12-23)
+
+### Changed
+
+- ♻️ Refactoring buildRoutingContext and add route interface override [[d482064](https://github.com/D34THWINGS/react-named-router/commit/d4820641c0f732b6fc278b4a48fefaea43d12ef5)]
+
+### Fixed
+
+- 🐛 Fix type issues on NamedRouter [[15de79a](https://github.com/D34THWINGS/react-named-router/commit/15de79ac3fd918e897f250240546555ee672a729)]
+
+
 <a name="0.7.2"></a>
 ## 0.7.2 (2019-12-20)
 
