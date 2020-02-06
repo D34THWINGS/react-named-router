@@ -1,6 +1,6 @@
 {
   "parser": "@typescript-eslint/parser",
-  "extends": ["airbnb", "plugin:@typescript-eslint/recommended"],
+  "extends": ["airbnb", "plugin:@typescript-eslint/recommended", "prettier", "prettier/react"],
   "env": {
     "browser": true,
     "node": true,
@@ -8,17 +8,19 @@
   },
   "rules": {
     "max-len": ["error", 120],
-    "indent": "off",
     "react/jsx-filename-extension": ["error", { "extensions": [".jsx", ".tsx"] }],
     "react/destructuring-assignment": "off",
     "react/jsx-props-no-spreading": "off",
     "object-curly-newline": "off",
-    "@typescript-eslint/indent": ["error", 2],
+    "@typescript-eslint/indent": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/no-unused-vars": ["error", {
-      "ignoreRestSiblings": true
-    }],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "ignoreRestSiblings": true
+      }
+    ],
     "import/prefer-default-export": "off",
     "import/no-default-export": "error",
     "react/prop-types": "off"

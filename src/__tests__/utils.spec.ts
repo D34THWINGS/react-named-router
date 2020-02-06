@@ -42,6 +42,66 @@ describe('Utils', () => {
       });
     });
 
+    it('should generate regex for parameter', () => {
+      // Given
+      const routes: NamedRouteConfig[] = [{ name: 'withParam', path: '/with/:param' }];
+
+      // When
+      const map = mapRoutes(routes);
+
+      // Then
+      expect(map.get('withParam')).toEqual({
+        ...routes[0],
+        parents: [],
+        regex: /^\/with\/([^/]+)\/?/,
+      });
+    });
+
+    it('should generate regex for multiple parameters', () => {
+      // Given
+      const routes: NamedRouteConfig[] = [{ name: 'withParams', path: '/with/:param1/and/:param2' }];
+
+      // When
+      const map = mapRoutes(routes);
+
+      // Then
+      expect(map.get('withParams')).toEqual({
+        ...routes[0],
+        parents: [],
+        regex: /^\/with\/([^/]+)\/and\/([^/]+)\/?/,
+      });
+    });
+
+    it('should generate regex for root', () => {
+      // Given
+      const routes: NamedRouteConfig[] = [{ name: 'root', path: '/' }];
+
+      // When
+      const map = mapRoutes(routes);
+
+      // Then
+      expect(map.get('root')).toEqual({
+        ...routes[0],
+        parents: [],
+        regex: /^\/?/,
+      });
+    });
+
+    it('should generate regex with basename', () => {
+      // Given
+      const routes: NamedRouteConfig[] = [{ name: 'root', path: '/' }];
+
+      // When
+      const map = mapRoutes(routes, '/base');
+
+      // Then
+      expect(map.get('root')).toEqual({
+        ...routes[0],
+        parents: [],
+        regex: /^\/base\/?/,
+      });
+    });
+
     it('should throw if path is given for a route but no name', () => {
       // Given
       const routes = [{ path: '/route-without-name' }];
@@ -52,9 +112,11 @@ describe('Utils', () => {
 
     it('should warn when registering a route twice', () => {
       // Given
-      const routes = [{ name: 'duplicate', path: '/route1' }, { name: 'duplicate', path: '/route2' }];
-      const consoleMock = jest.spyOn(console, 'warn').mockImplementation(() => {
-      });
+      const routes = [
+        { name: 'duplicate', path: '/route1' },
+        { name: 'duplicate', path: '/route2' },
+      ];
+      const consoleMock = jest.spyOn(console, 'warn').mockImplementation(() => {});
 
       // When
       mapRoutes(routes);
@@ -101,33 +163,50 @@ describe('Utils', () => {
   describe('#buildRoutingContext()', () => {
     it('should generate location object from string location', () => {
       // When
-      const context = buildRoutingContext([], { location: '/foo', history: createMemoryHistory() });
+      const context = buildRoutingContext([], {
+        location: '/foo',
+        history: createMemoryHistory(),
+      });
 
       // Then
-      expect(context.location).toEqual({ pathname: '/foo', search: '', state: {}, hash: '' });
+      expect(context.location).toEqual({
+        pathname: '/foo',
+        search: '',
+        state: {},
+        hash: '',
+      });
     });
   });
 
   describe('RoutingContext', () => {
     const routesMap = new Map<string, ExtendedRouteConfig>([
-      ['test', {
-        path: '/test',
-        regex: /^\/test$/,
-        exact: true,
-        parents: [],
-      }],
-      ['test2', {
-        path: '/test2',
-        regex: /^\/test2/,
-        parents: [],
-      }],
+      [
+        'test',
+        {
+          path: '/test',
+          regex: /^\/test$/,
+          exact: true,
+          parents: [],
+        },
+      ],
+      [
+        'test2',
+        {
+          path: '/test2',
+          regex: /^\/test2/,
+          parents: [],
+        },
+      ],
     ]);
 
     describe('#push()', () => {
       it('should call push on history with matching route', () => {
         // Given
         const history = createMemoryHistory();
-        const routingContext = new RoutingContext(routesMap, { history, location: {} as any });
+        const routingContext = new RoutingContext(routesMap, {
+          history,
+          location: {} as any,
+        });
         const historyPushMock = jest.spyOn(history, 'push');
 
         // When
@@ -140,7 +219,10 @@ describe('Utils', () => {
       it('should call push on history with matching route and custom state', () => {
         // Given
         const history = createMemoryHistory();
-        const routingContext = new RoutingContext(routesMap, { history, location: {} as any });
+        const routingContext = new RoutingContext(routesMap, {
+          history,
+          location: {} as any,
+        });
         const historyPushMock = jest.spyOn(history, 'push');
         const state = { key: 'value' };
 
@@ -148,7 +230,10 @@ describe('Utils', () => {
         routingContext.push({ name: 'test', state });
 
         // Then
-        expect(historyPushMock).toHaveBeenCalledWith({ pathname: '/test', state });
+        expect(historyPushMock).toHaveBeenCalledWith({
+          pathname: '/test',
+          state,
+        });
       });
     });
 
@@ -156,7 +241,10 @@ describe('Utils', () => {
       it('should call replace on history with matching route', () => {
         // Given
         const history = createMemoryHistory();
-        const routingContext = new RoutingContext(routesMap, { history, location: {} as any });
+        const routingContext = new RoutingContext(routesMap, {
+          history,
+          location: {} as any,
+        });
         const historyReplaceMock = jest.spyOn(history, 'replace');
 
         // When
@@ -169,7 +257,10 @@ describe('Utils', () => {
       it('should call replace on history with matching route and custom state', () => {
         // Given
         const history = createMemoryHistory();
-        const routingContext = new RoutingContext(routesMap, { history, location: {} as any });
+        const routingContext = new RoutingContext(routesMap, {
+          history,
+          location: {} as any,
+        });
         const historyPushMock = jest.spyOn(history, 'replace');
         const state = { key: 'value' };
 
@@ -177,7 +268,10 @@ describe('Utils', () => {
         routingContext.replace({ name: 'test', state });
 
         // Then
-        expect(historyPushMock).toHaveBeenCalledWith({ pathname: '/test', state });
+        expect(historyPushMock).toHaveBeenCalledWith({
+          pathname: '/test',
+          state,
+        });
       });
     });
 
@@ -243,11 +337,16 @@ describe('Utils', () => {
   describe('#buildRoutePath()', () => {
     it('should return built path for given route', () => {
       // Given
-      const map = new Map<string, ExtendedRouteConfig>([['test', {
-        path: '/test/:param',
-        regex: /^\/test$/,
-        parents: [],
-      }]]);
+      const map = new Map<string, ExtendedRouteConfig>([
+        [
+          'test',
+          {
+            path: '/test/:param',
+            regex: /^\/test$/,
+            parents: [],
+          },
+        ],
+      ]);
 
       // When
       const path = buildRoutePath(map, 'test', { param: 1234 });
@@ -258,11 +357,16 @@ describe('Utils', () => {
 
     it('should remove trailing slash if optional param not given', () => {
       // Given
-      const map = new Map<string, ExtendedRouteConfig>([['test', {
-        path: '/test/:param?',
-        regex: /^\/test$/,
-        parents: [],
-      }]]);
+      const map = new Map<string, ExtendedRouteConfig>([
+        [
+          'test',
+          {
+            path: '/test/:param?',
+            regex: /^\/test$/,
+            parents: [],
+          },
+        ],
+      ]);
 
       // When
       const path = buildRoutePath(map, 'test');
@@ -298,16 +402,22 @@ describe('Utils', () => {
 
     it('should throw if no value is provided for required param', () => {
       // Given
-      const map = new Map<string, ExtendedRouteConfig>([['routeWithParam', {
-        name: 'routeWithParam',
-        path: '/path/with/:param',
-        regex: /^$/,
-        parents: [],
-      }]]);
+      const map = new Map<string, ExtendedRouteConfig>([
+        [
+          'routeWithParam',
+          {
+            name: 'routeWithParam',
+            path: '/path/with/:param',
+            regex: /^$/,
+            parents: [],
+          },
+        ],
+      ]);
 
       // Then
-      expect(() => buildRoutePath(map, 'routeWithParam'))
-        .toThrow(new Error('Missing value for required param "param"'));
+      expect(() => buildRoutePath(map, 'routeWithParam')).toThrow(
+        new Error('Missing value for required param "param"'),
+      );
     });
   });
 });
