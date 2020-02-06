@@ -1,5 +1,17 @@
 # Changelog
 
+<a name="0.8.1"></a>
+## 0.8.1 (2020-02-06)
+
+### Changed
+
+- ⬆️ Bump handlebars from 4.2.0 to 4.5.3 ([#4](https://github.com/D34THWINGS/react-named-router/issues/4)) [[961f560](https://github.com/D34THWINGS/react-named-router/commit/961f5602f9253d78107849e6c01c475a7d56ce1a)]
+
+### Fixed
+
+- 🐛 Fix regex issue using basename and root slash [[1a5fc12](https://github.com/D34THWINGS/react-named-router/commit/1a5fc1273e6a6fb3707a9178a624c4ac47ac8e6d)]
+
+
 <a name="0.8.0"></a>
 ## 0.8.0 (2019-12-23)
 
