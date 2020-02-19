@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="0.8.2"></a>
+## 0.8.2 (2020-02-19)
+
+### Miscellaneous
+
+-  👷 Fix deployment to NPM [[255db46](https://github.com/D34THWINGS/react-named-router/commit/255db4628d746996d4038334e13c59a90a990404)]
+
+
 <a name="0.8.1"></a>
 ## 0.8.1 (2020-02-06)
 
