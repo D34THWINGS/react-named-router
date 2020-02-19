@@ -1,18 +1,18 @@
 language: node_js
 node_js:
-  - node
+- node
 cache:
-  - npm
-  - yarn
+- npm
+- yarn
 script:
-  - yarn lint
-  - yarn typecheck
-  - yarn test:ci
+- yarn lint
+- yarn typecheck
+- yarn test:ci
 deploy:
-  skip_cleanup: true
   provider: npm
   email: d34thwings@gmail.com
-  api_key: $NPM_API_KEY
+  api_key:
+    secure: kzcWUZ303/crhCU+UuMI/XY1DLUENkdkQ9PpCz7lY+QZqsz76FhSa+n1gNmeQ3ZZhbLeWwmnfvJTeeDnok57KPHkjDoRmfW6BACGXw/728WTlMn1lUSRvb6GGYZ3FN+bJIoLayJwwxC3aDB/SBsq99sCTHbWuY+YGk2zWh8Bv55c9+9xM702fjUhjhmU4OUZmk+Fl6jiC1dnNS5kzT8ysQ7eanicVF2kwK6qCo/xD78p5SPEa93IUxhfpnj4b975MXwXP+NQauiUbjWQV//hMKc6FBGtHSpQJA0XhAYYrvpbfxYh/FONjs8u8O156EzC5xlIaj79kNjjNhL0iHwyL6YohUFwGRxVg1VgienwqTkPa+e6suaAxS0WAwa3ikoCqxpxuiPZ3/4SF7FoEPqXj9M+p+Rhn94Qnn19uM9eKOzhFwdHLrdAwhACs3MMygaq/wJLvqMPs91/95RbVUXzfWBZu+w3MtBsx3SQK28ryn9asjel8HI7vk8RgZODA22pIYQ/WnbF0mFHR2POag8EuA8p2i9PEafm71FxpArYRnnFx4eto8Lr3bY05PkLGPLFJwvqDQ4I+aNoG3Tx5lpnryN7ZB8cKUV6C9SFehnE1ujr4SA2lq0ZHmSLWnVFq50AKEGIryiwpmsQaLwY7O5eY5TgS19lPan+aj5uVgl03a0=
   on:
     tags: true
     repo: D34THWINGS/react-named-router
